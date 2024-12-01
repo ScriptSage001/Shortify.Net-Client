@@ -1,0 +1,23 @@
+.prepend-span {
+    aspect-ratio: 1;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    margin-bottom: 0;
+}
+
+.apend-span {
+    aspect-ratio: 1;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    margin-bottom: 0;
+}
+
+.signup-link {
+    text-decoration: none;
+    font-weight: 600;
+    cursor: pointer;
+
+    &:hover {
+        text-decoration: underline;
+    }
+}
