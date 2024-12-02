@@ -5,8 +5,10 @@
     right: 50px;
     left: 290px;
 
-    .date-input {
-        border: 1px solid grey;
+    .filter {
+        .clear-button {
+            border: none;
+        }
     }
 }
 

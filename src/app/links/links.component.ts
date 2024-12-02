@@ -1,19 +1,22 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { NgFor, DatePipe } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { NgFor, NgIf, DatePipe } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { ShortenLink } from '../shared/models/shorten-link';
 import { ErrorPagesMappingService } from '../shared/services/error/error-pages-mapping.service';
-import { NgbCalendar, NgbDatepickerModule, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
-import { FormsModule } from '@angular/forms';
+import { DatePickerComponent } from "../shared/utils/date-picker/date-picker.component";
 
 @Component({
   selector: 'app-links',
   standalone: true,
   imports: [
     NgFor,
+    NgIf,
     NgbDatepickerModule,
-    FormsModule
-  ],
+    FormsModule,
+    DatePickerComponent
+],
   providers: [
     DatePipe
   ],
@@ -21,7 +24,7 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './links.component.scss'
 })
 export class LinksComponent implements OnInit {
-  public links: ShortenLink[] = [
+  private links: ShortenLink[] = [
     {
       id: 'yi8we943rh4',
       userId: 'shdfgu2384ry83bf',
@@ -41,7 +44,7 @@ export class LinksComponent implements OnInit {
       code: 'klsjkd',
       title: null,
       tags: ['Sale', 'Amazon'],
-      createdOnUtc: '2024-11-13 13:00:13.04006+00',
+      createdOnUtc: '2024-11-16 13:00:13.04006+00',
       updatedOnUtc: null
     },
     {
@@ -52,14 +55,20 @@ export class LinksComponent implements OnInit {
       code: 'Lkajus',
       title: 'Amazon Sale Link',
       tags: ['Sale', 'Amazon'],
-      createdOnUtc: '2024-11-13 13:00:13.04006+00',
+      createdOnUtc: '2024-11-20 13:00:13.04006+00',
       updatedOnUtc: null
     }
   ];
+  public filteredLinks: ShortenLink[] = this.links;
+
   public selectedLink: ShortenLink | null = null;
-  public contentGoneUrl: string = '';
-  public dateFilter: NgbDateStruct | null = null;
-  public today = inject(NgbCalendar).getToday();
+  public contentGoneUrl: string = '';  
+
+  public fromDate: string = '';
+  public toDate: string = '';
+
+  public isDateFilterApplied: boolean = false;
+  public isDatePickerVisible: boolean = false;
 
   constructor(
     private datePipe: DatePipe,
@@ -68,6 +77,36 @@ export class LinksComponent implements OnInit {
 
   ngOnInit(): void {   
     this.contentGoneUrl = this.errorPageMappingService.getContentGoneUrl();
+  }
+
+  public showDatePicker() {
+    this.isDatePickerVisible = true;
+  }
+
+  public hideDatePicker() {
+    this.isDatePickerVisible = false;
+  }
+
+  public onDateFilterApplied(filter: { fromDate: string; toDate: string }) {
+    const { fromDate, toDate } = filter;
+    this.fromDate = fromDate;
+    this.toDate = toDate;
+    
+    const fDate = new Date(fromDate);
+    const tDate = new Date(toDate);
+    
+    this.filteredLinks = this.links.filter(item => {
+      const date = new Date(item.createdOnUtc.slice(0, 10));
+      return (!fDate || date >= fDate) && (!tDate || date <= tDate)
+    });
+
+    this.isDateFilterApplied = true;
+    this.hideDatePicker();
+  }
+
+  public clearAllFilter() {
+    this.isDateFilterApplied = false;
+    this.filteredLinks = this.links;
   }
 
   public getDomain(url: string) {
@@ -79,8 +118,13 @@ export class LinksComponent implements OnInit {
     }
   }
 
-  public formatDate(dateString: string) {
+  public formatDateForCard(dateString: string) {
     const formattedDate = this.datePipe.transform(dateString, 'MMM dd, yyyy');
+    return formattedDate || 'Invalid Date';
+  }
+
+  public formatDateForFilter(dateString: string) {
+    const formattedDate = this.datePipe.transform(dateString, 'MMM dd');
     return formattedDate || 'Invalid Date';
   }
 

@@ -1,6 +1,7 @@
 <div class="links-bg rounded-2">
     <div class="mx-5 mt-4">
-        <div class="d-flex justify-content-between">
+        <!-- Heading -->
+        <div class="heading d-flex justify-content-between">
             <div class="display-6 proxima-bold">
                 Shortify Links
             </div>
@@ -9,25 +10,33 @@
                 Create Link
             </button>
         </div>
-        <div class="mt-2 d-flex">
-            <div class="input-group w-25 me-3">
-                <button class="btn btn-outline-secondary bi bi-calendar3" type="button" (click)="d.toggle()">
-                    <i class="fa-regular fa-calendar"></i>
-                </button>
-                <input class="form-control date-input" placeholder="Filter by created date" name="dp" 
-                [(ngModel)]="dateFilter" ngbDatepicker [footerTemplate]="footerTemplate" #d="ngbDatepicker" />
-            </div>
+
+        <!-- Filter -->
+        <div class="filter mt-2">
+            <button *ngIf="!isDateFilterApplied" class="btn btn-outline-secondary me-2" (click)="showDatePicker()">
+                <i class="fa-regular fa-calendar pe-2"></i>
+                Filter by created date
+            </button>
+            <button *ngIf="isDateFilterApplied" class="btn btn-outline-primary me-2" (click)="showDatePicker()">
+                <i class="fa-regular fa-calendar pe-2"></i>
+                {{ formatDateForFilter(fromDate) }} - {{ formatDateForFilter(toDate) }}
+            </button>
+            <app-date-picker *ngIf="isDatePickerVisible" (filterApplied)="onDateFilterApplied($event)" (filterClosed)="hideDatePicker()"></app-date-picker>
             <button class="btn btn-outline-secondary me-2">
                 <i class="fas fa-bars-staggered pe-2"></i>
                 Add filters
+            </button>
+            <button *ngIf="isDateFilterApplied" class="clear-button btn btn-outline-light text-primary me-2" (click)="clearAllFilter()">
+                Clear all
             </button>
         </div>
 
         <hr class="divider mt-3">
 
-        <div *ngFor="let link of links">
+        <!-- Cards -->
+        <div *ngFor="let link of filteredLinks">
             <div class="bg-primary-subtle rounded-2 my-4 link-card">
-                <div class="d-flex px-2 py-3">
+                <div class="d-flex px-2 py-3 align-items-center">
                     <div class="col-1 url-icon"></div>
                     <div class="col url-details">
                         <div class="title proxima-bold fs-4">
@@ -51,7 +60,7 @@
                                 </div>
                                 <div class="me-4">
                                     <i class="fa-regular fa-calendar pe-2"></i>
-                                    {{ formatDate(link.createdOnUtc) }}
+                                    {{ formatDateForCard(link.createdOnUtc) }}
                                 </div>
                                 <div>
                                     <i class="fa fa-tag pe-2"></i>
@@ -60,40 +69,38 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-3 url-actions">
-                        <div class="d-flex justify-content-between">
-                            <button class="btn btn-light" [disabled]="link.isCopiedFromCard" (click)="copyToClipboard(link, 'card')">
-                                <i class="fa-regular fa-copy pe-2"></i>
-                                {{ link.isCopiedFromCard ? 'Copied' : 'Copy' }}
+                    <div class="col-3 d-flex justify-content-end">
+                        <button class="me-1 btn btn-light" [disabled]="link.isCopiedFromCard" (click)="copyToClipboard(link, 'card')">
+                            <i class="fa-regular fa-copy pe-1"></i>
+                            {{ link.isCopiedFromCard ? 'Copied' : 'Copy' }}
+                        </button>
+                        <button class="me-1 btn btn-outline-dark" type="button"  data-bs-toggle="modal"
+                            data-bs-target="#shareModal" (click)="selectLink(link)">
+                            <i class="fa fa-share pe-1"></i>
+                            Share
+                        </button>
+                        <button class="me-1 btn btn-outline-dark">
+                            <i class="fa fa-pencil"></i>
+                        </button>
+                        <div class="me-1 dropdown">
+                            <button class="btn btn-outline-dark dropdown-toogle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fa fa-ellipsis-vertical"></i>
                             </button>
-                            <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal"
-                                data-bs-target="#shareModal" (click)="selectLink(link)">
-                                <i class="fa fa-share pe-2"></i>
-                                Share
-                            </button>
-                            <button class="btn btn-outline-dark">
-                                <i class="fa fa-pencil"></i>
-                            </button>
-                            <div class="dropdown">
-                                <button class="btn btn-outline-dark dropdown-toogle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <i class="fa fa-ellipsis-vertical"></i>
-                                </button>
-                                <ul class="dropdown-menu">
-                                    <li>
-                                        <a class="dropdown-item" type="button" data-bs-toggle="modal" 
-                                        data-bs-target="#deleteModal" (click)="selectLink(link)">
-                                            <i class="fas fa-trash-can pe-2"></i>
-                                            Delete
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item">
-                                            <i class="fa fa-link pe-2"></i>
-                                            View Link Details
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a class="dropdown-item" type="button" data-bs-toggle="modal" 
+                                    data-bs-target="#deleteModal" (click)="selectLink(link)">
+                                        <i class="fas fa-trash-can pe-2"></i>
+                                        Delete
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item">
+                                        <i class="fa fa-link pe-2"></i>
+                                        View Link Details
+                                    </a>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -210,10 +217,3 @@
         </div>
     </div>
 </div>
-
-<!-- Date Picker Footer Template -->
-<ng-template #footerTemplate>
-	<hr class="my-0" />
-	<button class="btn btn-primary btn-sm m-2 float-start" (click)="dateFilter = today; d.close()">Today</button>
-	<button class="btn btn-secondary btn-sm m-2 float-end" (click)="d.close()">Close</button>
-</ng-template>
