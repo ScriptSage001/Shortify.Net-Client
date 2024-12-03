@@ -75,7 +75,7 @@ export class ResetPasswordComponent {
   }
 
   public toggleRepeatFieldTextType() {
-    this.fieldTextType = !this.fieldTextType;
+    this.repeatFieldTextType = !this.repeatFieldTextType;
   }
 
   /*
