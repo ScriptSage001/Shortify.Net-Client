@@ -1,0 +1,90 @@
+<div class="create-link-wrapper">
+    <!-- Heading -->
+    <div class="heading d-flex justify-content-between">
+        <div class="display-6 proxima-bold">
+            Edit link
+        </div>
+        <button type="button" class="btn btn-outline-primary proxima-semi-bold fs-5 py-0" routerLink="/links">
+            <i class="fas fa-angle-left pe-2"></i>
+            Back to list
+        </button>
+    </div>
+
+    <hr class="divider mt-3">
+
+    <div class="create-form bg-primary-subtle my-4 rounded-2">
+        <div class="p-5">
+            <form [formGroup]="form">
+                <div class="mb-3">
+                    <div class="my-2 proxima-bold fs-3"> Title </div>
+                    <div class="input-group">
+                        <input class="form-control bg-body-primary" placeholder="Add a title" formControlName="title">
+                        <div class="input-group-append" (click)="switchEditMode('title')">
+                            <span class="btn btn-primary input-group-text apend-span d-flex">
+                                <i *ngIf="!isTitleInEditMode" class="fa fa-pencil"></i>
+                                <i *ngIf="isTitleInEditMode" class="fa fa-check"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <div class="my-2 proxima-bold fs-3"> Short URL </div>
+                    <div class="input-group">
+                        <input class="form-control bg-body-primary" formControlName="shortUrl">
+                        <div class="input-group-append">
+                            <span class="input-group-text apend-span">
+                                <i class="fas fa-ban"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <div class="my-2 proxima-bold fs-3"> Original URL </div>
+                    <div class="input-group">
+                        <input class="form-control bg-body-primary" formControlName="originalUrl">
+                        <div class="input-group-append" (click)="switchEditMode('originalUrl')">
+                            <span *ngIf="!isOriginalUrlInEditMode"
+                                class="btn btn-warning input-group-text apend-span d-flex proxima-semi-bold">
+                                <i class="fa fa-pencil"></i>
+                            </span>
+                            <span *ngIf="isOriginalUrlInEditMode"
+                                class="btn btn-warning input-group-text apend-span-with-text d-flex proxima-semi-bold">
+                                <i class="fa fa-check me-2"></i>
+                                Destination will be changed
+                            </span>
+                        </div>
+                    </div>
+                    <div class="error-feedback" *ngIf="hasDisplayableError('destination')">
+                        <div *ngIf="form.controls.originalUrl.hasError('required')">
+                            Please enter the destination url.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <div class="my-2 proxima-bold fs-3"> Tags <span class="fs-5">(Optional)</span></div>
+                    <div class="input-group tag-wrapper rounded-3 p-2">
+                        <span *ngFor="let tag of tags.controls; let i = index"
+                            class="tag d-inline-flex bg-body-secondary ps-2 py-1 rounded-2 proxima-bold">
+                            {{ tag.value }}
+                            <button type="button" class="btn-close ps-2 fs-6 scale-0-7" (click)="removeTag(i)"></button>
+                        </span>
+                        <input class="form-control bg-body-primary tag-input" placeholder="Add a tag"
+                            (keydown)="addTag($event)" />
+                    </div>
+                </div>
+
+                <div class="mt-4 d-flex justify-content-end">
+                    <button type="button" class="btn btn-lg btn-light rounded-3 me-4 proxima-bold" routerLink="/links">
+                        Cancel
+                    </button>
+                    <button (click)="onEdit()" class="btn btn-lg btn-success rounded-3 proxima-bold">
+                        Save
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

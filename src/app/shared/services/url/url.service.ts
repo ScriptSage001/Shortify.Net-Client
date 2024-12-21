@@ -1,4 +1,7 @@
 import { Injectable } from '@angular/core';
+import { from, Observable } from 'rxjs';
+import { HttpClient, HttpParams } from '@angular/common/http';
+
 import { UrlMappingService } from './url-mapping.service';
 
 @Injectable({
@@ -7,8 +10,51 @@ import { UrlMappingService } from './url-mapping.service';
 export class UrlService {
 
   constructor(
+    private http: HttpClient,
     private mappingService: UrlMappingService
   ) { }
 
+  public shortenUrl(body: any): Observable<any> {
+    const url = this.mappingService.getCreateShortenLinkUrl();
+    return this.http.post(url, body, { responseType: 'text' });
+  }
 
+  public getShortenUrls(pageNo: number, pageSize: number, sortColumn: string, sortOrder: string, fromDate?: string, toDate?: string, searchTerm?: string): Observable<any> {
+    const url = this.mappingService.getPaginatedShortenLinkUrl();
+    
+    let params = new HttpParams()
+      .set('page', pageNo)
+      .set('pageSize', pageSize)
+      .set('sortColumn', sortColumn)
+      .set('sortOrder', sortOrder);
+
+    if (fromDate && toDate) {      
+      params = params.set('fromDate', fromDate);
+      params = params.set('toDate', toDate);
+    }
+
+    if (searchTerm) {
+      params = params.set('searchTerm', searchTerm)
+    }
+
+    return this.http.get(url, { params });
+  }
+
+  public getShortenUrlByCode(code: string): Observable<any> {
+    const url = this.mappingService.getShortenUrlByCodeUrl(code);
+    const params = new HttpParams()
+      .set('isCode', true);
+    
+    return this.http.get(url, { params });
+  }
+
+  public deleteShortenUrl(id: string): Observable<any> {
+    const url = this.mappingService.getDeleteShortenUrlByIdUrl(id);
+    return this.http.delete(url, { responseType: 'text' });
+  }
+
+  public updateShortenUrl(body: any): Observable<any> {
+    const url = this.mappingService.getShortenUrlUpdateUrl();
+    return this.http.put(url, body);
+  }
 }

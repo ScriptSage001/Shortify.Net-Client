@@ -1,19 +1,19 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 import { OtpService } from '../../shared/services/otp/otp.service';
 import { AuthService } from '../../shared/services/auth/auth.service';
 import { AuthResponse } from '../../shared/models/auth-response';
 import { ToastrService } from 'ngx-toastr';
+import { UserService } from '../../shared/services/user/user.service';
 
 @Component({
   selector: 'app-sign-in',
   standalone: true,
   imports: [
     CommonModule,
-    ReactiveFormsModule,
-    RouterLink
+    ReactiveFormsModule
   ],
   templateUrl: './sign-in.component.html',
   styleUrl: './sign-in.component.scss'
@@ -30,9 +30,16 @@ export class SignInComponent implements OnInit {
   constructor(
     private otpService: OtpService,
     private authService: AuthService,
+    private userService: UserService,
     private toastr: ToastrService,
     private router: Router
-  ) {}
+  ) {
+    userService.email$.subscribe({
+      next: (email: string) => {
+        this.form.controls.email.setValue(email);    
+      }
+    });
+  }
 
   ngOnInit(): void {
     if (this.authService.isLoggedIn()) {     
@@ -51,6 +58,10 @@ export class SignInComponent implements OnInit {
     otp:['']
   });
 
+  public onEmailBlur() {
+    this.userService.setEmail(this.form.controls.email.value ?? '');
+  }
+
   public toggleFieldTextType() {
     this.fieldTextType = !this.fieldTextType;
   }
@@ -65,8 +76,20 @@ export class SignInComponent implements OnInit {
   }
 
   // To navigate to Dashboard page
-  navigateToDashboard() {
+  public navigateToDashboard() {
     this.router.navigate(['/dashboard']);
+  }
+
+  // To navigate to ResetPassword page
+  public navigateToResetPassword() {
+    this.userService.setEmail(this.form.controls.email.value ?? '');
+    this.router.navigate(['/reset-password']);
+  }
+
+  // To navigate to ResetPassword page
+  public navigateToSignUp() {
+    this.userService.setEmail(this.form.controls.email.value ?? '');
+    this.router.navigate(['/sign-up']);
   }
 
   public sendLoginOtp() {
@@ -90,30 +113,30 @@ export class SignInComponent implements OnInit {
   }
 
   public signIn() {
-    if(this.form.valid) {
+    if (this.form.valid) {
       const { email, password } = this.form.value;
 
       const payload = {
         userName: null,
         email: email,
         password: password
-      };      
+      };
 
       this.authService.loginUser(payload)
-      .subscribe({
-        next: (response: AuthResponse) => {
-          this.form.reset();
-          this.isSubmitted = false;
-          this.authService.saveToken(response);
-          this.toastr.success(
-            'Redirecting to the Dashboard.',
-            'User Logged In Successfully!'); 
-          this.navigateToDashboard();          
-        },
-        error: () => {
-          this.isSubmitted = false;          
-        }
-      });
+        .subscribe({
+          next: (response: AuthResponse) => {
+            this.form.reset();
+            this.isSubmitted = false;
+            this.authService.saveToken(response);
+            this.toastr.success(
+              'Redirecting to the Dashboard.',
+              'User Logged In Successfully!');
+            this.navigateToDashboard();
+          },
+          error: () => {
+            this.isSubmitted = false;
+          }
+        });
     }
   }
 

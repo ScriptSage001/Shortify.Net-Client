@@ -8,7 +8,11 @@ import { authGuard } from './shared/auth.guard';
 import { MainLayoutComponent } from './layouts/main-layout/main-layout.component';
 import { LinksComponent } from './links/links.component';
 import { SettingsComponent } from './settings/settings.component';
-import { DatePickerComponent } from './shared/utils/date-picker/date-picker.component';
+import { CreateLinkComponent } from './links/create-link/create-link.component';
+import { AllLinksComponent } from './links/all-links/all-links.component';
+import { DetailedLinkComponent } from './links/detailed-link/detailed-link.component';
+import { EditLinkComponent } from './links/edit-link/edit-link.component';
+import { UpcomingComponent } from './shared/utils/upcoming/upcoming.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: '/sign-in', pathMatch: 'full' },
@@ -23,9 +27,18 @@ export const routes: Routes = [
     { path: '', component: MainLayoutComponent, canActivate: [ authGuard ], 
         children: [
             { path: 'dashboard', component: DashboardComponent },
-            { path: 'links', component: LinksComponent },
-            { path: 'settings', component: SettingsComponent }
+            { path: 'settings', component: UpcomingComponent },
+            { path: 'links', component: LinksComponent,
+                children: [
+                    { path: '', component: AllLinksComponent },
+                    { path: 'create', component: CreateLinkComponent },
+                    { path: ':code', component: DetailedLinkComponent },
+                    { path: ':code/edit', component: EditLinkComponent }
+                ]
+            },
+            { path: 'coming-soon', component: UpcomingComponent },
+            { path: 'support', redirectTo: '/coming-soon', pathMatch: 'full' },
+            { path: 'tandc', redirectTo: '/coming-soon', pathMatch: 'full' }
         ]
     },
-    { path: 'date', component: DatePickerComponent }
 ];

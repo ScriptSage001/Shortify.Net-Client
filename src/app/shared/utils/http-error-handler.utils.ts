@@ -3,6 +3,7 @@ import { ToastrService } from "ngx-toastr";
 import { ProblemDetails } from "../models/problem-details";
 import { Router } from "@angular/router";
 import { Injectable } from "@angular/core";
+import { UserService } from "../services/user/user.service";
 
 @Injectable({
     providedIn: 'root'
@@ -11,6 +12,7 @@ import { Injectable } from "@angular/core";
 export class HttpErrorHandlerUtils {
 
     constructor(
+        private userService: UserService,
         private toastr: ToastrService,
         private router: Router
     ) {}
@@ -40,11 +42,11 @@ export class HttpErrorHandlerUtils {
         const problemDetails = new ProblemDetails(error);
 
         if (problemDetails.status === 409) {
-            this.toastr.error(problemDetails.detail || 'Request Failed.');
+            this.toastr.warning(problemDetails.detail || 'Request Failed.');
 
             //Start a 0.5-second timer to redirect to the SignIn
             setTimeout(() => {
-                this.router.navigateByUrl('/sign-in');
+                this.router.navigate(['/sign-in']);
             }, 500);
         } else if (problemDetails.status === 500) {
             this.toastr.error('Internal Server Error. Please contact IT Admin.');
@@ -62,6 +64,13 @@ export class HttpErrorHandlerUtils {
             } else {
                 this.toastr.error(`Request failed: ${problemDetails.title}`);
             }
+        } else if (problemDetails.status === 404 && problemDetails.title === 'User.UserNotFound') {
+            this.toastr.warning(problemDetails.detail, 'Please Sign Up.');
+            
+            //Start a 0.5-second timer to redirect to the SignIn
+            setTimeout(() => {
+                this.router.navigate(['/sign-up']);
+            }, 500);
         } else {
             this.toastr.error(`Request failed: ${problemDetails.title}`);
         }

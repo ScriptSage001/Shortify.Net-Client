@@ -5,7 +5,7 @@
     <div class="text-secondary">
         Don't have an account? 
         <a 
-            routerLink="/sign-up" 
+            (click)="navigateToSignUp()" 
             class="fw-medium signup-link text-success d-inlin-block">
             Sign Up
         </a>
@@ -21,7 +21,7 @@
                   <i class="fa fa-envelope" aria-hidden="true"></i>
                 </span>
             </div>
-            <input class="form-control bg-body-secondary" placeholder="Email" formControlName="email">
+            <input class="form-control bg-body-secondary" placeholder="Email" formControlName="email" autocomplete="email" (blur)="onEmailBlur()">
         </div>
         <div class="error-feedback" *ngIf="hasDisplayableError('email')">
             <div *ngIf="form.controls.email.hasError('required')">
@@ -38,7 +38,7 @@
         <div class="mb-3">
             <div class="input-group">
                 <input [type]="fieldTextType ? 'text' : 'password'" class="form-control bg-body-secondary"
-                    placeholder="Password" formControlName="password">
+                    placeholder="Password" formControlName="password" autocomplete="current-password">
                 <div class="input-group-append">
                     <span class="input-group-text apend-span">
                         <i class="fa" [ngClass]="{
@@ -57,7 +57,7 @@
     
         <!-- Forget Password -->
         <div class="mt-2 text-secondary text-end">
-            <a routerLink="/reset-password" class="fw-medium signup-link text-success d-inlin-block">
+            <a (click)="navigateToResetPassword()" class="fw-medium signup-link text-success d-inlin-block">
                 Forgot Password ?
             </a>
         </div>

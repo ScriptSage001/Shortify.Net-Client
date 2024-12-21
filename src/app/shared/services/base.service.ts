@@ -10,10 +10,12 @@ export class BaseService {
   public otpManagementUrl: string;
   public authManagementUrl: string;
   public userManagementUrl: string;
+  public urlManagementUrl: string;
 
   private readonly OTP_MANAGEMENT_URL = 'v1/otp/';
   private readonly AUTH_MANAGEMENT_URL = 'v1/auth/';
   private readonly USER_MANAGEMENT_URL = 'v1/user/';
+  private readonly URL_MANAGEMENT_URL = 'v1/shorten/';
 
   constructor() {
     this.baseApiUrl = environment.baseApiUrl;
@@ -21,6 +23,7 @@ export class BaseService {
     this.otpManagementUrl = this.baseApiUrl + this.OTP_MANAGEMENT_URL;
     this.authManagementUrl = this.baseApiUrl + this.AUTH_MANAGEMENT_URL;
     this.userManagementUrl = this.baseApiUrl + this.USER_MANAGEMENT_URL;
+    this.urlManagementUrl = this.baseApiUrl + this.URL_MANAGEMENT_URL;
   }
 
   private getDomain(urlString: string) {

@@ -1,0 +1,34 @@
+@import '../../../styles.scss';
+
+.create-link-wrapper {
+    .heading {
+        button {
+            border: none;
+        }
+    }
+
+    .create-form {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+        .input-group {
+            .apend-span {
+                aspect-ratio: 1;
+                border-top-left-radius: 0;
+                border-bottom-left-radius: 0;
+                margin-bottom: 0;
+            }
+        }
+
+        .tag-wrapper {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+            background: white;
+
+            .tag-input {
+                border: none;
+            }
+        }
+    }
+}

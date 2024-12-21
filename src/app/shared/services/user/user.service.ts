@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { UserMappingService } from './user-mapping.service';
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -10,7 +10,10 @@ import { UserProfile } from '../../models/user-profile';
 export class UserService {
 
   private userDetailsSubject = new BehaviorSubject<any>(null);
+  private emailSubject = new BehaviorSubject<string>('');
+
   public userDetails$ = this.userDetailsSubject.asObservable();
+  public email$ = this.emailSubject.asObservable();
 
   constructor(
     private http: HttpClient,
@@ -28,5 +31,13 @@ export class UserService {
 
   public clearUserDetials()  {
     this.userDetailsSubject.next(null);
+  }
+
+  public setEmail(email: string)  {
+    this.emailSubject.next(email);
+  }
+
+  public removeEmail()  {
+    this.emailSubject.next('');
   }
 }

@@ -1,11 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 import { AbstractControl, FormBuilder, ReactiveFormsModule, ValidatorFn, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 
 import { OtpService } from '../../shared/services/otp/otp.service';
 import { AuthService } from '../../shared/services/auth/auth.service';
+import { UserService } from '../../shared/services/user/user.service' ;
 import { FirstKeyPipe } from '../../shared/pipes/first-key.pipe';
 
 @Component({
@@ -14,8 +15,7 @@ import { FirstKeyPipe } from '../../shared/pipes/first-key.pipe';
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    FirstKeyPipe,
-    RouterLink
+    FirstKeyPipe
   ],
   templateUrl: './reset-password.component.html',
   styleUrl: './reset-password.component.scss'
@@ -23,12 +23,19 @@ import { FirstKeyPipe } from '../../shared/pipes/first-key.pipe';
 export class ResetPasswordComponent {
 
   constructor(
-    private toastr: ToastrService,
     private otpService: OtpService,
     private authService: AuthService,
+    private userService: UserService,
+    private toastr: ToastrService,
     private router: Router
-  ) {}
-
+  ) {
+    userService.email$.subscribe({
+      next: (email: string) => {
+        this.form.controls.email.setValue(email);    
+      }
+    });
+  }
+  
   public isSubmitted: boolean = false;
   public isOtpSent: boolean = false;
   public isOtpVerified: boolean = false;
@@ -64,6 +71,10 @@ export class ResetPasswordComponent {
       Validators.pattern(/(?=.*[^a-zA-Z0-9 ])/)]],
     confirmPassword: ['']
   }, { validators: this.passwordMatchValidator });
+
+  public onEmailBlur() {
+    this.userService.setEmail(this.form.controls.email.value ?? '');
+  }
 
   public hasDisplayableError(controlName: string): boolean {
     const control = this.form.get(controlName);
@@ -176,10 +187,10 @@ export class ResetPasswordComponent {
             'Redirecting to the SignIn.',
             'Password Changed Successfully!');
 
-          //Start a 3-second timer to redirect to the SignIn
+          //Start a 0.5-second timer to redirect to the SignIn
           setTimeout(() => {
             this.navigateToSignIn();
-          }, 3000);
+          }, 500);
         },
         error: () => {
           this.isSubmitted = false;
@@ -189,6 +200,7 @@ export class ResetPasswordComponent {
 
   // To navigate to SignIn page
   navigateToSignIn() {
+    this.userService.setEmail(this.form.controls.email.value ?? '');
     this.router.navigate(['/sign-in']);
   }
 

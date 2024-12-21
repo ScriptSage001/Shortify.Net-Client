@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 import { AbstractControl, FormBuilder, ReactiveFormsModule, ValidatorFn, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 
@@ -9,6 +9,9 @@ import { OtpService } from '../../shared/services/otp/otp.service';
 import { AuthService } from '../../shared/services/auth/auth.service';
 import { RegisterUserRequest } from '../../shared/models/register-user-request';
 import { AuthResponse } from '../../shared/models/auth-response';
+import { HttpErrorResponse } from '@angular/common/http';
+import { ProblemDetails } from '../../shared/models/problem-details';
+import { UserService } from '../../shared/services/user/user.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -16,8 +19,7 @@ import { AuthResponse } from '../../shared/models/auth-response';
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    FirstKeyPipe,
-    RouterLink
+    FirstKeyPipe
   ],
   templateUrl: './sign-up.component.html',
   styleUrl: './sign-up.component.scss'
@@ -27,9 +29,16 @@ export class SignUpComponent implements OnInit {
   constructor(
     private otpService: OtpService,
     private authService: AuthService,
+    private userService: UserService,
     private toastr: ToastrService,
     private router: Router
-  ) { }
+  ) {
+    userService.email$.subscribe({
+      next: (email: string) => {
+        this.form.controls.email.setValue(email);    
+      }
+    });
+   }
 
   ngOnInit(): void {
     if (this.authService.isLoggedIn()) {
@@ -81,6 +90,10 @@ export class SignUpComponent implements OnInit {
       Validators.pattern(/(?=.*[^a-zA-Z0-9 ])/)]],
     confirmPassword: ['']
   }, { validators: this.passwordMatchValidator });
+
+  public onEmailBlur() {
+    this.userService.setEmail(this.form.controls.email.value ?? '');
+  }
 
   /*
    * To Submit the Registration Form and SignUp 
@@ -209,6 +222,7 @@ export class SignUpComponent implements OnInit {
 
   // To navigate to SignIn page
   navigateToSignIn() {
+    this.userService.setEmail(this.form.controls.email.value ?? '');
     this.router.navigate(['/sign-in']);
   }
 

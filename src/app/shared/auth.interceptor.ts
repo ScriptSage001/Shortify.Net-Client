@@ -44,7 +44,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
                   toastr.info('Please login again.', 'Session Expired!');
                 }, 1000);
                 router.navigateByUrl('sign-in');
-                return throwError(() => refreshErr);
+                return throwError(() => new Error('Refresh Token Failed: ' + refreshErr.message));
               })
             );
           } else {
@@ -54,6 +54,8 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
               toastr.info('Please login again.', 'Session Expired!');
             }, 1000);
             router.navigateByUrl('sign-in');
+
+            return throwError(() => new Error('No Refresh Token Available'));
           }
         } else if (err.status === 403) {
           toastr.error("Oops! It seems you're not authorized to perform the action.");
@@ -68,6 +70,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   // If the user is not logged in, proceed without adding an Authorization header
   return next(req).pipe(
     catchError((err) => {
+      console.log(req);
       // Handle the errors using Common Error Handler Utility
       errorHandler.handleError(err);
 

@@ -1,7 +1,6 @@
 import { Component, EventEmitter, inject, Output } from '@angular/core';
 import { NgbAlertModule, NgbCalendar, NgbDate, NgbDateParserFormatter, NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
-import { JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'app-date-picker',
@@ -9,8 +8,7 @@ import { JsonPipe } from '@angular/common';
   imports: [
     NgbDatepickerModule,
     NgbAlertModule,
-    FormsModule,
-    JsonPipe
+    FormsModule
   ],
   templateUrl: './date-picker.component.html',
   styleUrl: './date-picker.component.scss'

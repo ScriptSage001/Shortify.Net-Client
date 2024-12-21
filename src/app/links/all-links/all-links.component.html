@@ -1,0 +1,132 @@
+<div class="all-links-wrapper">
+    <!-- Heading -->
+    <div class="heading d-flex justify-content-between">
+        <div class="display-6 proxima-bold">
+            Shortify Links
+        </div>
+        <button class="btn btn-primary proxima-semi-bold fs-6" routerLink="/links/create">
+            <i class="fas fa-link"></i>
+            Create Link
+        </button>
+    </div>
+
+    <!-- Filter -->
+    <div class="filter mt-2">
+        <button *ngIf="!isDateFilterApplied" class="btn btn-outline-secondary me-2" (click)="showDatePicker()">
+            <i class="fa-regular fa-calendar pe-2"></i>
+            Filter by created date
+        </button>
+        <button *ngIf="isDateFilterApplied" class="btn btn-outline-primary me-2" (click)="showDatePicker()">
+            <i class="fa-regular fa-calendar pe-2"></i>
+            {{ formatDateForFilter(fromDate) }} - {{ formatDateForFilter(toDate) }}
+        </button>
+        <app-date-picker *ngIf="isDatePickerVisible" (filterApplied)="onDateFilterApplied($event)" (filterClosed)="hideDatePicker()"></app-date-picker>
+        <button *ngIf="!isFilterApplied" class="btn btn-outline-secondary me-2" (click)="showFilter()">
+            <i class="fas fa-bars-staggered pe-2"></i>
+            Add filters
+        </button>
+        <button *ngIf="isFilterApplied" class="btn btn-outline-primary me-2" (click)="showFilter()">
+            <i class="fas fa-bars-staggered pe-2"></i>
+            Filters Applied
+        </button>
+        <app-filter-modal *ngIf="isFilterVisible" [searchTerm]="searchTerm" [sortBy]="sortBy" [sortOrder]="sortOrder" (filterApplied)="onFilterApplied($event)" (filterClosed)="hideFilter()"></app-filter-modal>
+        <button *ngIf="isDateFilterApplied || isFilterApplied" class="clear-button btn btn-outline-light text-primary me-2" (click)="clearAllFilter()">
+            Clear all
+        </button>
+    </div>
+
+    <hr class="divider mt-3">
+
+    <!-- Cards -->
+    <div *ngFor="let link of links?.items">
+        <div class="bg-primary-subtle rounded-2 my-4 link-card">
+            <div class="d-flex px-2 py-3 align-items-center">
+                <div class="col-1 url-icon">
+                    <img [src]="getFavIconUrl(link.originalUrl)" alt="Favicon" width="64" height="64" class="rounded-circle ms-2">
+                </div>
+                <div class="col url-details">
+                    <div class="d-flex align-items-center">
+                        <div type="button" class="title proxima-bold fs-4" (click)="onTitleClick(link.code)">
+                            {{ link.title || (getDomain(link.originalUrl) + ' | untitled') }}
+                        </div>
+                        <button class="transparent-icon ms-1 btn" (click)="onEdit(link.code)">
+                            <i class="fa fa-pencil"></i>
+                        </button>
+                    </div>
+                    <div class="short-url text-primary proxima-bold fs-6">
+                        <div class="d-flex align-items-center">
+                            <a href="{{ link.shortUrl }}" target="_blank">
+                                {{ link.shortUrl }}
+                            </a>
+                            <button class="transparent-icon ms-1 btn btn-light" [disabled]="link.isCopiedFromCard" (click)="copyToClipboard(link)">
+                                <i class="fa-regular fa-copy"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="original-url proxima-bold fs-6 text-truncate">
+                        <a href="{{ link.originalUrl }}" target="_blank">
+                            {{ link.originalUrl }}
+                        </a>
+                    </div>
+                    <div class="url-extra-details mt-4">
+                        <div class="d-flex align-items-center">
+                            <div class="btn btn-light me-4 py-1">
+                                <i class="fa fa-chart-simple pe-2"></i>
+                                Analytics
+                            </div>
+                            <div class="me-4">
+                                <i class="fa-regular fa-calendar pe-2"></i>
+                                {{ formatDateForCard(link.createdOnUtc) }}
+                            </div>
+                            <div>
+                                <i class="fa fa-tag pe-2"></i>
+                                {{ link.tags?.join(', ') || 'No Tags' }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-2 d-flex justify-content-end me-2">
+                    <button class="me-2 btn btn-outline-dark" type="button" (click)="onShareModalOpen(link.shortUrl)">
+                        <i class="fa fa-share"></i>
+                    </button>
+                    <button class="btn btn-outline-danger" type="button" (click)="onDeleteModalOpen(link.id)">
+                        <i class="fas fa-trash-can"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="links?.items && !links?.hasNextPage" class="proxima-bold mb-3 fs-5 text-center">
+        - You've reached the end of your links -
+    </div>
+
+    <div *ngIf="!links?.items && !(isDateFilterApplied || isFilterApplied)" class="proxima-bold fs-5 text-center no-link-text w-100">
+        - You dont't have any link yet. Click on <strong>Create Link</strong> button to create one -
+    </div>
+    
+    <div *ngIf="!links?.items && (isDateFilterApplied || isFilterApplied)" class="proxima-bold fs-5 text-center no-link-text w-100">
+        - Oops! There's no link for the applied filter. Remove the filters to see all the links -
+    </div>
+
+    <!-- Pagination -->
+    <ngb-pagination 
+        [collectionSize]="collectionSize" 
+        [(page)]="pageNo" 
+        [pageSize]="pageSize" 
+        [maxSize]="4" 
+        [rotate]="true" 
+        [boundaryLinks]="true"
+        (pageChange)="onPageChange($event)"
+        class="d-flex justify-content-center"
+        *ngIf="links && (links.hasNextPage || links.hasPreviousPage)"
+    />
+</div>
+
+<!-- Share Modal -->
+<app-share-modal *ngIf="isShareModalVisible" [shortUrl]="shareShortUrl"
+    (shareClosed)="onShareModalClose()"></app-share-modal>
+
+<!-- Delete Modal -->
+<app-delete-modal *ngIf="isDeleteModalVisible" [shortUrlId]="shortUrlIdForDelete"
+    (closeDeleteModal)="onDeleteModalClose()" (deleteShortUrl)="deleteLink($event)"></app-delete-modal>

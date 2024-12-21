@@ -8,6 +8,7 @@ export interface ShortenLink {
     tags?: string[] | null,
     createdOnUtc: string,
     updatedOnUtc?: string | null,
+    rowStatus?: boolean,
     isCopiedFromCard?: boolean,
     isCopiedFromShareModal?: boolean
 }

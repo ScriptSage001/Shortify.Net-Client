@@ -1,0 +1,23 @@
+<div class="modal fade show" id="deleteModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content p-3">
+            <div class="modal-header">
+                <h1 class="proxima-bold fs-4">Delete Link ?</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                    (click)="closeModal()"></button>
+            </div>
+            <div class="modal-body proxima-semi-bold fs-5">
+                Deleting this link will redirect it to the 
+                <a target="_blank" href="{{ contentGoneUrl }}">
+                    Shortify Content Deactivated error page</a>.
+                <br><br>
+                This cannot be undone.
+            </div>
+            <div class="modal-footer justify-content-end fs-6">
+                <button class="btn btn-light btn-lg" data-bs-dismiss="modal" (click)="closeModal()">Cancel</button>
+                <button class="btn btn-danger btn-lg" (click)="emitDeleteUrlEvent()">Delete Link</button>
+            </div>
+        </div>
+    </div>
+</div>

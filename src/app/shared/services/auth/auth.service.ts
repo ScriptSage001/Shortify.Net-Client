@@ -40,6 +40,7 @@ export class AuthService {
   public refreshToken(): Observable<any> {
     const url = this.mappingService.getRefreshTokenUrl();
     const body = this.getRefreshTokenPayload();
+    this.removeRefreshToken();
     return this.http.post(url, body);
   }
 
@@ -88,5 +89,10 @@ export class AuthService {
       return expirationDate >= now;
     }
     return false;
+  }
+
+  private removeRefreshToken() {
+    localStorage.removeItem(REFRESH_TOKEN_KEY);        
+    localStorage.removeItem(REFRESH_TOKEN_EXPIRATION_KEY);
   }
 }

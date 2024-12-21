@@ -4,7 +4,7 @@
     </div>
     <span class="text-secondary">
         Already have an account? 
-        <a routerLink="/sign-in" class="signin-link text-success">
+        <a (click)="navigateToSignIn()" class="signin-link text-success">
             Sign In
         </a>
     </span>
@@ -21,7 +21,7 @@
                   <i class="fa fa-envelope" aria-hidden="true"></i>
                 </span>
             </div>
-            <input class="form-control bg-body-secondary" placeholder="Email" formControlName="email">
+            <input class="form-control bg-body-secondary" placeholder="Email" formControlName="email" (blur)="onEmailBlur()">
         </div>
         <div class="error-feedback" *ngIf="hasDisplayableError('email')">
             <div *ngIf="form.controls.email.hasError('required')">
