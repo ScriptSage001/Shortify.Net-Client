@@ -7,15 +7,15 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { authGuard } from './shared/auth.guard';
 import { MainLayoutComponent } from './layouts/main-layout/main-layout.component';
 import { LinksComponent } from './links/links.component';
-import { SettingsComponent } from './settings/settings.component';
 import { CreateLinkComponent } from './links/create-link/create-link.component';
 import { AllLinksComponent } from './links/all-links/all-links.component';
 import { DetailedLinkComponent } from './links/detailed-link/detailed-link.component';
 import { EditLinkComponent } from './links/edit-link/edit-link.component';
 import { UpcomingComponent } from './shared/utils/upcoming/upcoming.component';
+import { LandingLayoutComponent } from './layouts/landing-layout/landing-layout.component';
 
 export const routes: Routes = [
-    { path: '', redirectTo: '/sign-in', pathMatch: 'full' },
+    { path: '', component: LandingLayoutComponent },
     {
         path: '', component: UserComponent,
         children: [

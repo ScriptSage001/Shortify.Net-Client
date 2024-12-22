@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { from, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { HttpClient, HttpParams } from '@angular/common/http';
 
 import { UrlMappingService } from './url-mapping.service';
@@ -56,5 +56,17 @@ export class UrlService {
   public updateShortenUrl(body: any): Observable<any> {
     const url = this.mappingService.getShortenUrlUpdateUrl();
     return this.http.put(url, body);
+  }
+
+  public setDestinationUrlFromLanding(url: string) {
+    sessionStorage.setItem('dest_url_fl', url);
+  }
+
+  public getDestinationUrlFromLanding(): string | null {
+    return sessionStorage.getItem('dest_url_fl');
+  }
+
+  public removeDestinationUrlFromLanding() {
+    sessionStorage.removeItem('dest_url_fl');
   }
 }

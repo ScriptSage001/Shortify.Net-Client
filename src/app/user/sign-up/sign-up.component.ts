@@ -9,9 +9,8 @@ import { OtpService } from '../../shared/services/otp/otp.service';
 import { AuthService } from '../../shared/services/auth/auth.service';
 import { RegisterUserRequest } from '../../shared/models/register-user-request';
 import { AuthResponse } from '../../shared/models/auth-response';
-import { HttpErrorResponse } from '@angular/common/http';
-import { ProblemDetails } from '../../shared/models/problem-details';
 import { UserService } from '../../shared/services/user/user.service';
+import { UrlService } from '../../shared/services/url/url.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -30,6 +29,7 @@ export class SignUpComponent implements OnInit {
     private otpService: OtpService,
     private authService: AuthService,
     private userService: UserService,
+    private urlService: UrlService,
     private toastr: ToastrService,
     private router: Router
   ) {
@@ -38,6 +38,10 @@ export class SignUpComponent implements OnInit {
         this.form.controls.email.setValue(email);    
       }
     });
+    const urlFromLanding = urlService.getDestinationUrlFromLanding();
+    if (urlFromLanding && urlFromLanding != '') {
+      this.isWithUrl = true;
+    }
    }
 
   ngOnInit(): void {
@@ -55,6 +59,7 @@ export class SignUpComponent implements OnInit {
   resendTimer: number = 60;
   timerInterval: any;
   emailVerificationToken: string = '';
+  isWithUrl: boolean = false;
 
   private formBuilder = inject(FormBuilder);
 

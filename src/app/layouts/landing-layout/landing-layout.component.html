@@ -1,0 +1,172 @@
+<div class="landing-main">
+    <app-navbar></app-navbar>
+
+    <div class="landing-body p-5 w-100 d-flex flex-column align-items-center justify-content-center text-center">
+        <div class="landing-heading proxima-bold fs-1 scale-1-1 my-4 text-success
+        border-gradient border-gradient-success only-bottom">
+            Connect Your Audience with Simplicity
+        </div>
+        <div class="landing-paragraph proxima-semi-bold fs-4 text-center my-3">
+            With Shortify.NET, easily create short links and track your digital engagement. <br/>
+            Simplify how you share and interact online, all within the Shortify.NET platform.
+        </div>
+        <div class="landing-shortener bg-body-tertiary my-3 p-3 rounded-3 
+        d-flex flex-column gap-3 shadow border-solid-rounded border-solid-success top-bottom" [formGroup]="form">
+            <div class="shortener-title proxima-bold fs-1 text-center my-2 text-success">
+                Shorten a link for free
+            </div>
+            <div class="input-group">
+                <input type="text" placeholder="Paste your link here" class="form-control" 
+                aria-label="Paste your link here" aria-describedby="Paste your link here" formControlName="destinationUrl">
+            </div>
+            <div class="error-feedback" *ngIf="hasDisplayableError('destinationUrl')">
+                <div *ngIf="form.controls.destinationUrl.hasError('required')">
+                    Please pass a valid URL
+                </div>
+            </div>
+            <button class="btn btn-success proxima-bold fs-5 mb-2" (click)="onLinkGenerationClick()" [disabled]="isSubmitted">
+                Get your link for free
+            </button>
+        </div>
+        <div class="bg-white fs-5 proxima-semi-bold my-4">
+            Sign up for free. Your free plan includes: 10 short links/month & Unlimited link clicks
+        </div>
+    </div>
+    
+    <footer class="bg-success text-center text-lg-start text-white">
+
+        <div class="container p-3">
+            <div class="row my-4">
+                <!--Grid column-->
+                <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+
+                    <div class="footer-logo rounded-circle bg-white shadow-1-strong d-flex align-items-center justify-content-center mb-4 mx-auto">
+                        <img src="Shortify icon White BG.png" height="100"
+                            alt="" loading="lazy" />
+                    </div>
+
+                    <p class="text-center proxima-bold fs-5">Shortify.NET <br> Shorten. Simplify. Share.</p>
+                    <p class="text-center proxima-bold">Copyright &#169; {{ currentYear }}. All Rights Reserved.</p>
+
+                    <!-- <ul class="list-unstyled d-flex flex-row justify-content-center">
+                        <li>
+                            <a class="text-white px-2" href="#!">
+                                <i class="fab fa-facebook-square"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="text-white px-2" href="#!">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="text-white ps-2" href="#!">
+                                <i class="fab fa-youtube"></i>
+                            </a>
+                        </li>
+                    </ul> -->
+
+                </div>
+                <!--Grid column-->
+
+                <!--Grid column-->
+                <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                    <h5 class="text-uppercase mb-4 proxima-bold">Products</h5>
+
+                    <ul class="list-unstyled proxima-bold">
+                        <li class="mb-2">
+                            <i class="fas fa-link pe-2"></i>
+                            URL Shortener
+                        </li>
+                        <li class="mb-2">
+                            <i class="fas fa-qrcode pe-3"></i>
+                            QR Code Generator (Coming Soon)
+                        </li>
+                        <li class="mb-2">
+                            <i class="fas fa-chart-simple pe-3"></i>
+                            Analytics (Coming Soon)
+                        </li>
+                    </ul>
+                </div>
+                <!--Grid column-->
+
+                <!--Grid column-->
+                <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                    <h5 class="text-uppercase mb-4 proxima-bold">Resources</h5>
+
+                    <ul class="list-unstyled proxima-bold">
+                        <li class="mb-2">
+                            <a href="https://shortify-net.onrender.com/swagger/index.html" class="links" target="_blank">
+                                <i class="fas fa-file pe-3"></i>
+                                &nbsp;API Documentation
+                            </a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="https://hub.docker.com/r/thescriptsage/shortifynetapi" class="links" target="_blank">
+                                <i class="fa-brands fa-docker pe-2"></i>
+                                &nbsp;Backend Docker Image
+                            </a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="https://github.com/ScriptSage001/Shortify.Net-Client" class="links" target="_blank">
+                                <i class="fa-brands fa-github pe-3"></i>
+                                UI Codebase
+                            </a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="https://github.com/ScriptSage001/Shortify.NET" class="links" target="_blank">
+                                <i class="fa-brands fa-github pe-3"></i>
+                                Backend Codebase
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <!--Grid column-->
+
+                <!--Grid column-->
+                <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                    <h5 class="text-uppercase mb-4 proxima-bold">Contact</h5>
+
+                    <ul class="list-unstyled proxima-bold">
+                        <li>
+                            <a class="links" href="mailto:{{supportEmail}}" target="_blank">
+                                <i class="fas fa-envelope pe-2"></i>
+                                {{ supportEmail }}
+                            </a>
+                        </li>
+                    </ul>
+
+                    <h5 class="text-uppercase my-4 proxima-bold">Contact &#64; DEV</h5>
+
+                    <ul class="list-unstyled proxima-bold">
+                        <li>
+                            <a class="links" href="mailto:{{devEmail}}" target="_blank">
+                                <i class="fas fa-envelope pe-1"></i>
+                                &nbsp;{{ devEmail }}
+                            </a>
+                        </li>
+                        <li>
+                            <a class="links" href="https://www.linkedin.com/in/kaustab-samanta/" target="_blank">
+                                <i class="fa-brands fa-linkedin pe-2"></i>
+                                &nbsp;Kaustab Samanta
+                            </a>
+                        </li>
+                        <li>
+                            <a class="links" href="https://github.com/ScriptSage001" target="_blank">
+                                <i class="fa-brands fa-github pe-2 mb-0"></i>
+                                &nbsp;TheScriptSage
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <!--Grid column-->
+            </div>
+        </div>
+
+        <div class="footer-end-bar text-center p-2 proxima-bold">
+            Made with &nbsp;
+            <i class="fa fa-heart"></i> &nbsp; by 
+            <a class="text-white" href="https://github.com/ScriptSage001" target="_blank">TheScriptSage</a>.
+        </div>
+    </footer>
+</div>

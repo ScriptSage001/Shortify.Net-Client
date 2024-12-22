@@ -1,23 +1,16 @@
 @import '../../styles.scss';
 
+.navbar {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
 .logo-container {
     .logo {
         cursor: pointer;
+        height: 7vh;
     }
     
     img {
         content: url($logo);
-        max-height: 5vh;
-    }
-}
-
-
-.signin-link {
-    text-decoration: none;
-    font-weight: 600;
-    cursor: pointer;
-
-    &:hover {
-        text-decoration: underline;
     }
 }

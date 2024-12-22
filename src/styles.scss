@@ -20,6 +20,48 @@ body::-webkit-scrollbar {
     margin-top: 0.1rem !important;
 }
 
+.border-gradient {
+    border: 10px solid;
+    border-image-slice: 1;
+    border-width: 5px;
+}
+
+.border-solid-rounded {
+    border: 5px solid;
+    border-image-slice: 1;
+    border-radius: 1em;
+}
+
+.border-gradient-success {
+    border-image-source: linear-gradient(to left, #14A44D 40%, #3dff8b00);
+}
+
+.border-solid-success {
+    border-color: #14A44D;
+}
+
+.only-top {
+    border-left: 0;
+    border-right: 0;
+    border-bottom: 0;
+}
+
+.only-bottom {
+    border-left: 0;
+    border-right: 0;
+    border-top: 0;
+}
+
+.top-bottom {
+    border-left: 0;    
+    border-right: 0;    
+}
+
+.left-right {
+    border-top: 0;    
+    border-bottom: 0;    
+}
+
 .scale-0-5 {
     transform: scale(0.5);
 }

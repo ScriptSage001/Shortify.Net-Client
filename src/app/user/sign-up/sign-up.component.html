@@ -145,8 +145,11 @@
 
         <!-- Submit Button -->
         <div class="mt-4">
-            <button type="submit" (click)="signUp()" class="btn btn-success rounded-3 w-100">
+            <button *ngIf="!isWithUrl" type="submit" (click)="signUp()" class="btn btn-success rounded-3 w-100">
                 Sign Up
+            </button>
+            <button *ngIf="isWithUrl" type="submit" (click)="signUp()" class="btn btn-success rounded-3 w-100">
+                Sign Up to Create Short Link
             </button>
         </div>
     </div>

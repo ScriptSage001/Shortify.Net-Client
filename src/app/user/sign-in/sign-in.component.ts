@@ -7,6 +7,7 @@ import { AuthService } from '../../shared/services/auth/auth.service';
 import { AuthResponse } from '../../shared/models/auth-response';
 import { ToastrService } from 'ngx-toastr';
 import { UserService } from '../../shared/services/user/user.service';
+import { UrlService } from '../../shared/services/url/url.service';
 
 @Component({
   selector: 'app-sign-in',
@@ -26,11 +27,13 @@ export class SignInComponent implements OnInit {
   public isOtpSent: boolean = false;
   public resendTimer: number = 60;
   public timerInterval: any;
+  public isWithUrl: boolean = false;
 
   constructor(
     private otpService: OtpService,
     private authService: AuthService,
     private userService: UserService,
+    private urlService: UrlService,
     private toastr: ToastrService,
     private router: Router
   ) {
@@ -39,6 +42,10 @@ export class SignInComponent implements OnInit {
         this.form.controls.email.setValue(email);    
       }
     });
+    const urlFromLanding = urlService.getDestinationUrlFromLanding();
+    if (urlFromLanding && urlFromLanding != '') {
+      this.isWithUrl = true;
+    }
   }
 
   ngOnInit(): void {

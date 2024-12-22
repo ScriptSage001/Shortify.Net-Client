@@ -1,0 +1,47 @@
+.landing-main {
+    min-height: 100vh;
+    background-color: #ffffff;
+    background-image: radial-gradient(#14A44D 1px, transparent 1px);
+    background-size: 16px 16px;
+
+    .landing-body {
+        margin-top: 9vh !important;
+        height: 91vh;
+
+        .landing-heading {
+            background: rgb(255,255,255);
+            background: linear-gradient(to top, #ffffff 70%, #3dff8b00);
+        }
+
+        .landing-paragraph {
+            background: rgb(255,255,255);
+            background: radial-gradient(circle, rgba(255,255,255,1) 90%, rgba(255,255,255,0) 100%);
+        }
+
+        .landing-shortener {
+            min-width: 70vw;
+
+            .shortener-title {
+                text-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            }
+        }
+    }
+
+    .links {
+        text-decoration: none;
+        color: white;
+    }
+
+    .links:hover {
+        cursor: pointer;
+    }
+
+    .footer-logo {
+        width: 150px;
+        height: 150px;
+    }
+
+    .footer-end-bar {
+        background-color: rgba(0, 0, 0, 0.2);
+    }
+}

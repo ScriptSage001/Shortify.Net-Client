@@ -1,4 +1,4 @@
-<div class="card mb-4">
+<div *ngIf="!isWithUrl" class="card mb-4">
   <div class="card-body text-center">
     <span class="fs-2 proxima-bold mb-0">
       Hi,
@@ -24,7 +24,7 @@
   </div>
 </div> -->
 
-<div class="card-group tag-cards text-center">
+<div *ngIf="!isWithUrl" class="card-group tag-cards text-center">
   <div class="card rounded-end-0">
     <img src="scissors-solid.png" class="card-img-top scale-0-7" alt="...">
     <div class="card-body">

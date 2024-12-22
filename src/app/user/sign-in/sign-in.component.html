@@ -64,8 +64,11 @@
 
         <!-- Submit Button -->
         <div class="mt-3">
-            <button type="submit" (click)="signIn()" class="btn btn-success rounded-3 w-100">
+            <button type="submit" (click)="signIn()" *ngIf="!isWithUrl" class="btn btn-success rounded-3 w-100">
                 Sign In
+            </button>
+            <button type="submit" (click)="signIn()" *ngIf="isWithUrl" class="btn btn-success rounded-3 w-100">
+                Sign In to Create Short Link
             </button>
         </div>
     </div>
@@ -100,8 +103,11 @@
         
         <!-- Login with OTP Button -->
         <div *ngIf="isOtpSent" class="mt-3">
-            <button type="submit" (click)="signInwithOtp()" class="btn btn-success rounded-3 w-100">
+            <button *ngIf="!isWithUrl" type="submit" (click)="signInwithOtp()" class="btn btn-success rounded-3 w-100">
                 Sign In with OTP
+            </button>
+            <button *ngIf="isWithUrl" type="submit" (click)="signInwithOtp()" class="btn btn-success rounded-3 w-100">
+                Sign In with OTP to Create Short Link
             </button>
         </div>
     </div>
