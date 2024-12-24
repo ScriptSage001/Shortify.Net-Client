@@ -20,6 +20,14 @@ body::-webkit-scrollbar {
     margin-top: 0.1rem !important;
 }
 
+.btn-information {
+    border: none;
+}
+
+.btn-information:hover {
+    border: none;
+}
+
 .border-gradient {
     border: 10px solid;
     border-image-slice: 1;

@@ -41,7 +41,13 @@
                 </div>
 
                 <div class="mb-3">
-                    <div class="my-2 proxima-bold fs-3"> Original URL </div>
+                    <div class="my-2 proxima-bold fs-3"> 
+                        Original URL
+                        <button type="button" class="btn btn-information text-secondary" placement="end" 
+                        ngbTooltip="Modify this URL to update the redirection target of the short link.">
+                            <i class="fas fa-circle-info"></i>
+                        </button>
+                    </div>
                     <div class="input-group">
                         <input class="form-control bg-body-primary" formControlName="originalUrl">
                         <div class="input-group-append" (click)="switchEditMode('originalUrl')">
@@ -64,14 +70,20 @@
                 </div>
 
                 <div class="mb-3">
-                    <div class="my-2 proxima-bold fs-3"> Tags <span class="fs-5">(Optional)</span></div>
+                    <div class="my-2 proxima-bold fs-3"> 
+                        Tags <span class="fs-5">(Optional)</span>
+                        <button type="button" class="btn btn-information text-secondary" placement="end" 
+                        ngbTooltip="To add tags, type a tag and press Enter or Tab before saving. You can add multiple tags.">
+                            <i class="fas fa-circle-info"></i>
+                        </button>
+                    </div>
                     <div class="input-group tag-wrapper rounded-3 p-2">
                         <span *ngFor="let tag of tags.controls; let i = index"
                             class="tag d-inline-flex bg-body-secondary ps-2 py-1 rounded-2 proxima-bold">
                             {{ tag.value }}
                             <button type="button" class="btn-close ps-2 fs-6 scale-0-7" (click)="removeTag(i)"></button>
                         </span>
-                        <input class="form-control bg-body-primary tag-input" placeholder="Add a tag"
+                        <input class="form-control bg-body-primary tag-input" placeholder="Type and press Enter/Tab to add tags"
                             (keydown)="addTag($event)" />
                     </div>
                 </div>

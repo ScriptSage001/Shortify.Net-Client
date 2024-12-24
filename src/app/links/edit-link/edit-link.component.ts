@@ -6,6 +6,7 @@ import { ToastrService } from 'ngx-toastr'
 ;
 import { UrlService } from '../../shared/services/url/url.service';
 import { ShortenLink } from '../../shared/models/shorten-link';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-edit-link',
@@ -13,7 +14,8 @@ import { ShortenLink } from '../../shared/models/shorten-link';
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    RouterLink
+    RouterLink,
+    NgbTooltipModule
   ],
   templateUrl: './edit-link.component.html',
   styleUrl: './edit-link.component.scss'

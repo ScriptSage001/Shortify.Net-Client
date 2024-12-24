@@ -4,6 +4,7 @@ import { FormArray, FormBuilder, ReactiveFormsModule, Validators } from '@angula
 import { Router, RouterLink } from '@angular/router';
 import { UrlService } from '../../shared/services/url/url.service';
 import { ToastrService } from 'ngx-toastr';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-create-link',
@@ -11,7 +12,8 @@ import { ToastrService } from 'ngx-toastr';
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    RouterLink
+    RouterLink,
+    NgbTooltipModule
   ],
   templateUrl: './create-link.component.html',
   styleUrl: './create-link.component.scss'
