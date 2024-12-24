@@ -61,10 +61,10 @@ export class EditLinkComponent implements OnInit {
 
   private populateEditForm() {
     this.form = this.formBuilder.group({
-      title: [this.shortenLink.title],
+      title: [this.shortenLink.title ?? ''],
       shortUrl: [this.shortenLink.shortUrl],
-      originalUrl: [this.shortenLink.originalUrl, Validators.required],
-      tags: this.formBuilder.array(this.shortenLink.tags)
+      originalUrl: [this.shortenLink.originalUrl ?? '', Validators.required],
+      tags: this.formBuilder.array(this.shortenLink.tags ?? [])
     });
 
     this.form.controls.title.disable();
