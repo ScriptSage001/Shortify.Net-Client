@@ -3,29 +3,21 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content p-3">
             <div class="modal-header">
-                <h1 class="proxima-bold fs-4">Apply Filter & Sort</h1>
+                <h1 class="proxima-bold fs-4">Apply Sorting</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
                     (click)="closeModal()"></button>
             </div>
             <div class="modal-body proxima-semi-bold fs-5">
-                <div class="input-group">
-                    <input type="text" class="form-control proxima-semi-bold fs-5" placeholder="Filter with title or tags" aria-label="SearchTerm" 
-                    aria-describedby="SearchTerm" [(ngModel)]="searchTerm">
-                    <span class="input-group-text" id="SearchTerm">
-                        <i class="fa fa-search"></i>
-                    </span>
-                </div>
-
                 <div class="sort-group">
-                    <div class="sort-item my-4">
+                    <div class="sort-item mb-4">
                         <div class="text-primary proxima-bold fs-4">
                             Sort by
                         </div>
                         <div class="sort-btn my-2 d-grid gap-2">
                             <input type="radio" class="btn-check" name="sort-by" id="title" autocomplete="off" [(ngModel)]="sortBy" value="title">
-                            <label class="btn btn-secondary proxima-bold fs-5" for="title">Title</label>
+                            <label class="btn btn-light border-secondary proxima-bold fs-5" for="title">Title</label>
                             <input type="radio" class="btn-check" name="sort-by" id="creation" autocomplete="off" [(ngModel)]="sortBy" value="createdOn" checked>
-                            <label class="btn btn-secondary proxima-bold fs-5" for="creation">Creation Date</label>
+                            <label class="btn btn-light border-secondary proxima-bold fs-5" for="creation">Creation Date</label>
                         </div>
                     </div>
                     <div class="sort-item my-4">
@@ -34,16 +26,16 @@
                         </div>
                         <div class="sort-btn my-2 d-grid gap-2">
                             <input type="radio" class="btn-check" name="sort-order" id="ascending" autocomplete="off" [(ngModel)]="sortOrder" value="asc">
-                            <label class="btn btn-secondary proxima-bold fs-5" for="ascending">Ascending</label>
+                            <label class="btn btn-light border-secondary proxima-bold fs-5" for="ascending">Ascending</label>
                             <input type="radio" class="btn-check" name="sort-order" id="descending" autocomplete="off" [(ngModel)]="sortOrder" value="desc" checked>
-                            <label class="btn btn-secondary proxima-bold fs-5" for="descending">Descending</label>
+                            <label class="btn btn-light border-secondary proxima-bold fs-5" for="descending">Descending</label>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="modal-footer justify-content-end">
-                <button class="btn btn-light btn-lg align-items-center proxima-bold" (click)="clearFilter()">Clear Filter</button>
-                <button class="btn btn-primary btn-lg proxima-bold" (click)="applyFilter()">Apply</button>
+                <button class="btn btn-light btn-lg align-items-center proxima-bold" (click)="clearSort()">Clear Filter</button>
+                <button class="btn btn-primary btn-lg proxima-bold" (click)="applySort()">Apply</button>
             </div>
         </div>
     </div>

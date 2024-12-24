@@ -11,8 +11,7 @@ import { PagedList } from '../../shared/models/paged-list';
 import { ShareModalComponent } from '../../shared/utils/share-modal/share-modal.component';
 import { DeleteModalComponent } from '../../shared/utils/delete-modal/delete-modal.component';
 import { ToastrService } from 'ngx-toastr';
-import { FilterModalComponent } from '../../shared/utils/filter-modal/filter-modal.component';
-import { UserProfile } from '../../shared/models/user-profile';
+import { SortModalComponent } from '../../shared/utils/sort-modal/sort-modal.component';
 import { UserService } from '../../shared/services/user/user.service';
 
 @Component({
@@ -28,7 +27,7 @@ import { UserService } from '../../shared/services/user/user.service';
     DatePickerComponent,
     ShareModalComponent,
     DeleteModalComponent,
-    FilterModalComponent
+    SortModalComponent
   ],
   providers: [
     DatePipe
@@ -50,11 +49,13 @@ export class AllLinksComponent {
   public isDatePickerVisible: boolean = false;
 
   public searchTerm: string = '';
-  public sortBy: string = 'createdOn';
-  public sortOrder: string = 'desc';
-  public isFilterApplied: boolean = false;
-  public isFilterVisible: boolean = false;
+  public sortBy: string = '';
+  public sortOrder: string = '';
+  public isSortApplied: boolean = false;
+  public isSortVisible: boolean = false;
   
+  public isSearchApplied: boolean = false;
+
   public shareShortUrl: string = '';
   public isShareModalVisible: boolean = false;
   
@@ -73,12 +74,20 @@ export class AllLinksComponent {
     this.userService.userDetails$
       .subscribe(user => {
         if (user) {
-          this.getShortenUrls();
+          this.setSortAndFilter();
         }
       });
+
   }
 
   //#region Filter
+
+  private setSortAndFilter() {
+    this.sortBy = 'createdOn';
+    this.sortOrder = 'desc';
+    this.isSortApplied = true;
+    this.getShortenUrls();
+  }
 
   //#region Date Filter
 
@@ -111,20 +120,19 @@ export class AllLinksComponent {
 
   //#endregion
 
-  //#region Filter and Sort
+  //#region Sort
 
-  public showFilter() {
-    this.isFilterVisible = true;
+  public showSort() {
+    this.isSortVisible = true;
   }
 
-  public hideFilter() {
-    this.isFilterVisible = false;
+  public hideSort() {
+    this.isSortVisible = false;
   }
 
-  public onFilterApplied(filter: { searchTerm: string; sortBy: string, sortOrder: string }) {
-    const { searchTerm, sortBy, sortOrder } = filter;
+  public onSortApplied(filter: { sortBy: string, sortOrder: string }) {
+    const { sortBy, sortOrder } = filter;
     
-    this.searchTerm = searchTerm;
     this.sortBy = sortBy;
     this.sortOrder = sortOrder;
 
@@ -132,20 +140,35 @@ export class AllLinksComponent {
     this.getShortenUrls();
 
     // Update UI state
-    this.isFilterApplied = true;
-    this.hideFilter();
+    if (sortBy == '' && sortOrder == '') {
+      this.isSortApplied = false;
+    } else {
+      this.isSortApplied = true;
+    }
+
+    this.hideSort();
   }
+
+  //#region Search
+
+  public onSearch() {
+    this.getShortenUrls();
+    this.isSearchApplied = true;
+  }
+
+  //#endregion
 
   //#endregion
 
   public clearAllFilter() {
     this.isDateFilterApplied = false;
-    this.isFilterApplied = false;
+    this.isSortApplied = false;
+    this.isSearchApplied = false;
     this.fromDate = '';
     this.toDate = '';
     this.searchTerm = '';
-    this.sortBy = 'createdOn';
-    this.sortOrder = 'desc';
+    this.sortBy = '';
+    this.sortOrder = '';
     this.pageNo = 1;
 
     this.getShortenUrls();

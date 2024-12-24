@@ -11,28 +11,58 @@
     </div>
 
     <!-- Filter -->
-    <div class="filter mt-2">
-        <button *ngIf="!isDateFilterApplied" class="btn btn-outline-secondary me-2" (click)="showDatePicker()">
-            <i class="fa-regular fa-calendar pe-2"></i>
-            Filter by created date
-        </button>
-        <button *ngIf="isDateFilterApplied" class="btn btn-outline-primary me-2" (click)="showDatePicker()">
-            <i class="fa-regular fa-calendar pe-2"></i>
-            {{ formatDateForFilter(fromDate) }} - {{ formatDateForFilter(toDate) }}
-        </button>
+    <div class="filter mt-2 container">
+        <div class="row align-items-center">
+            <div class="col-auto">
+                <button *ngIf="!isDateFilterApplied" class="btn btn-outline-secondary" (click)="showDatePicker()">
+                    <i class="fa-regular fa-calendar pe-2"></i>
+                    Filter by created date
+                </button>
+                <button *ngIf="isDateFilterApplied" class="btn btn-outline-primary" (click)="showDatePicker()">
+                    <i class="fa-regular fa-calendar pe-2"></i>
+                    {{ formatDateForFilter(fromDate) }} - {{ formatDateForFilter(toDate) }}
+                </button>
+            </div>
+            <div class="col-auto">
+                <button *ngIf="!isSortApplied" class="btn btn-outline-secondary" (click)="showSort()">
+                    <i *ngIf="sortBy != 'createdOn' && sortOrder != 'desc'" class="fas fa-arrow-up-a-z pe-2"></i>
+                    <i *ngIf="sortBy != 'createdOn' && sortOrder == 'desc'" class="fas fa-arrow-down-a-z pe-2"></i>
+                    <i *ngIf="sortBy == 'createdOn' && sortOrder != 'desc'" class="fas fa-arrow-up-1-9 pe-2"></i>
+                    <i *ngIf="sortBy == 'createdOn' && sortOrder == 'desc'" class="fas fa-arrow-down-1-9 pe-2"></i>
+                    Sort
+                </button>
+                <button *ngIf="isSortApplied" class="btn btn-outline-primary" (click)="showSort()">
+                    <i *ngIf="sortBy != 'createdOn' && sortOrder != 'desc'" class="fas fa-arrow-up-a-z pe-2"></i>
+                    <i *ngIf="sortBy != 'createdOn' && sortOrder == 'desc'" class="fas fa-arrow-down-a-z pe-2"></i>
+                    <i *ngIf="sortBy == 'createdOn' && sortOrder != 'desc'" class="fas fa-arrow-up-1-9 pe-2"></i>
+                    <i *ngIf="sortBy == 'createdOn' && sortOrder == 'desc'" class="fas fa-arrow-down-1-9 pe-2"></i>
+                    Sort
+                </button>
+            </div>
+            <div class="col-4">
+                <div *ngIf="!isSearchApplied" class="input-group">
+                    <input type="text" class="form-control proxima-semi-bold border-secondary" placeholder="Search with title or tags" aria-label="SearchTerm" 
+                    aria-describedby="SearchTerm" [(ngModel)]="searchTerm">
+                    <button class="btn btn-outline-secondary input-group-text" id="SearchTerm" (click)="onSearch()">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </div>
+                <div *ngIf="isSearchApplied" class="input-group">
+                    <input type="text" class="form-control proxima-semi-bold text-primary border-primary" placeholder="Search with title or tags" aria-label="SearchTerm" 
+                    aria-describedby="SearchTerm" [(ngModel)]="searchTerm">
+                    <button class="btn btn-outline-primary input-group-text" id="SearchTerm" (click)="onSearch()">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="col-3">
+                <button *ngIf="isDateFilterApplied || isSortApplied" class="clear-button btn btn-outline-light text-primary me-2" (click)="clearAllFilter()">
+                    Clear all
+                </button>
+            </div>
+        </div>
         <app-date-picker *ngIf="isDatePickerVisible" (filterApplied)="onDateFilterApplied($event)" (filterClosed)="hideDatePicker()"></app-date-picker>
-        <button *ngIf="!isFilterApplied" class="btn btn-outline-secondary me-2" (click)="showFilter()">
-            <i class="fas fa-bars-staggered pe-2"></i>
-            Add filters
-        </button>
-        <button *ngIf="isFilterApplied" class="btn btn-outline-primary me-2" (click)="showFilter()">
-            <i class="fas fa-bars-staggered pe-2"></i>
-            Filters Applied
-        </button>
-        <app-filter-modal *ngIf="isFilterVisible" [searchTerm]="searchTerm" [sortBy]="sortBy" [sortOrder]="sortOrder" (filterApplied)="onFilterApplied($event)" (filterClosed)="hideFilter()"></app-filter-modal>
-        <button *ngIf="isDateFilterApplied || isFilterApplied" class="clear-button btn btn-outline-light text-primary me-2" (click)="clearAllFilter()">
-            Clear all
-        </button>
+        <app-sort-modal *ngIf="isSortVisible" [sortBy]="sortBy" [sortOrder]="sortOrder" (sortApplied)="onSortApplied($event)" (sortClosed)="hideSort()"></app-sort-modal>
     </div>
 
     <hr class="divider mt-3">
@@ -101,11 +131,11 @@
         - You've reached the end of your links -
     </div>
 
-    <div *ngIf="!links?.items && !(isDateFilterApplied || isFilterApplied)" class="proxima-bold fs-5 text-center no-link-text w-100">
+    <div *ngIf="!links?.items && !(isDateFilterApplied || isSortApplied)" class="proxima-bold fs-5 text-center no-link-text w-100">
         - You dont't have any link yet. Click on <strong>Create Link</strong> button to create one -
     </div>
     
-    <div *ngIf="!links?.items && (isDateFilterApplied || isFilterApplied)" class="proxima-bold fs-5 text-center no-link-text w-100">
+    <div *ngIf="!links?.items && (isDateFilterApplied || isSortApplied)" class="proxima-bold fs-5 text-center no-link-text w-100">
         - Oops! There's no link for the applied filter. Remove the filters to see all the links -
     </div>
 
