@@ -64,3 +64,34 @@
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
 }
+
+.logo-container {
+
+    .logo {
+        cursor: pointer;
+        height: 4vh;
+    }
+}
+
+#navbar-sm {
+    .nav {
+        .nav-item a {
+            color: #637381;
+            font-size: 0.9rem;
+            font-weight: 500;
+            padding: 0.7rem 1 rem;
+        }
+        
+        .nav-item:hover {
+            background-color: #007fff17;
+            border-radius: 0.5rem;
+        }
+    
+        .active {
+            background-color: #defcee;
+            color: #198754 !important;
+            border-left: 8px solid #198754;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+    }
+}

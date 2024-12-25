@@ -1,0 +1,34 @@
+:host {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    --bs-offcanvas-width: 200px !important;
+}
+
+.navbar {
+    .nav {
+        li.nav-item {
+            margin-bottom: 10px;
+        }
+    
+        li.nav-item a {
+            color: #637381;
+            font-size: 0.9rem;
+            font-weight: 500;
+            padding: 0.7rem 1 rem;
+        }
+    
+        li.nav-item:hover {
+            background-color: #007fff17;
+            border-radius: 0.5rem;
+        }
+    
+        .active {
+            background-color: #defcee;
+            color: #198754 !important;
+            border-left: 6px solid #198754;
+            border-right: 6px solid #198754;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+    }
+}

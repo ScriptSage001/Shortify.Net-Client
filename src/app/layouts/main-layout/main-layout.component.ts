@@ -1,8 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { NgbOffcanvas } from '@ng-bootstrap/ng-bootstrap';
+
 import { AuthService } from '../../shared/services/auth/auth.service';
 import { UserService } from '../../shared/services/user/user.service';
 import { UserProfile } from '../../shared/models/user-profile';
+import { OffcanvasNavbarComponent } from '../../offcanvas-navbar/offcanvas-navbar.component';
 
 @Component({
   selector: 'app-main-layout',
@@ -18,6 +21,7 @@ import { UserProfile } from '../../shared/models/user-profile';
 export class MainLayoutComponent implements OnInit {
 
   public userDetails: UserProfile | null = null;
+  private offcanvasService = inject(NgbOffcanvas);
 
   constructor(
     private authService: AuthService,
@@ -61,5 +65,12 @@ export class MainLayoutComponent implements OnInit {
       dropdownList.classList.toggle('show');
       dropdownList.classList.toggle('dropdown-list-show');
     }
+  }
+
+  public openOffcanvas() {
+    const offcanvasRef = this.offcanvasService.open(OffcanvasNavbarComponent);
+    offcanvasRef.componentInstance.userName = this.userDetails?.userName;
+    offcanvasRef.componentInstance.email = this.userDetails?.email;
+    offcanvasRef.componentInstance.onSignOutTriggered = () => this.onLogout();
   }
 }

@@ -1,4 +1,4 @@
-<nav id="sidebar" class="navbar bg-body-tertiary vh-100 flex-column justify-content-start pt-0 position-fixed">
+<nav id="sidebar" class="navbar bg-body-tertiary vh-100 d-none d-lg-flex d-md-flex flex-column justify-content-start pt-0 position-fixed">
     <div class="container-fluid justify-content-center p-1">
         <a routerLink= "" class="navbar-brand h1 fw-bold text-success mb-3">
              <img 
@@ -34,7 +34,7 @@
     </ul>
 </nav>
 
-<div class="main">
+<div class="main d-none d-lg-block d-md-block">
     <nav class="navbar bg-body-tertiary">
         <div class="container-fluid px-5 py-1 justify-content-end">
             <!-- <form class="d-flex" role="search">
@@ -62,9 +62,8 @@
                     <li>
                         <hr class="dropdown-divider">
                     </li>
-                    <li><a class="dropdown-item" routerLink="/support">Support</a></li>
-                    <li><a class="dropdown-item" href="https://shortify-net.onrender.com/swagger/index.html" target="_blank">API
-                            Documentations</a></li>
+                    <li><a class="dropdown-item" routerLink="/about">About Us</a></li>
+                    <li><a class="dropdown-item" routerLink="/resources">Resources</a></li>
                     <li><a class="dropdown-item" routerLink="/tandc">Terms & Conditions</a></li>
                     <li>
                         <hr class="dropdown-divider">
@@ -81,3 +80,32 @@
         <router-outlet />
     </div>
 </div>
+
+<nav class="navbar bg-body-tertiary d-block d-md-none d-lg-none shadow">
+    <div class="container p-2">
+        <a routerLink="" class="navbar-brand logo-container">
+            <img class="logo d-block scale-1-1 ps-2" alt="Shortify.NET Logo" src="Shortify-Full-Logo-Horizontal-Black-Transparent.png">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarButtons" 
+        aria-controls="navbarButtons" aria-expanded="false" aria-label="Toggle Navigation" (click)="openOffcanvas()">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+</nav>
+
+<!-- <div class="container p-3 d-block d-md-none d-lg-none" id="navbar-sm">
+    <div class="row text-center gap-3 nav">
+        <div class="col nav-item rounded-pill proxima-bold">
+            <a class="nav-link active" href=""></a>
+            Home
+        </div>
+        <div class="col nav-item rounded-pill proxima-bold">
+            <a class="nav-link" href=""></a>
+            Links
+        </div>
+        <div class="col nav-item rounded-pill proxima-bold">
+            <a class="nav-link" href=""></a>
+            Settings
+        </div>
+    </div>
+</div> -->
