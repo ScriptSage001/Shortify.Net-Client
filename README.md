@@ -1,27 +1,98 @@
-# ShortifyNetClient
+<h1 align="center" id="title">Shortify.NET - Frontend</h1>
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.11.
+<p align="center"><img src="https://github.com/ScriptSage001/Shortify.NET/blob/master/Assets/Images/Logo.png?raw=true" alt="logo"></p>
 
-## Development server
+<p align="center"><img src="https://socialify.git.ci/ScriptSage001/Shortify.Net-Client/image?custom_description=A+powerful+URL+shortening+platform+that+simplifies+sharing+links.&description=1&font=Raleway&language=1&name=1&owner=1&theme=Auto" alt="project-image"></p>
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+Welcome to the Angular-based frontend of **Shortify.NET**, a powerful URL shortening platform that simplifies sharing links. This application provides an interactive user interface for managing shortened URLs, enabling user-friendly authentication and various URL management features.
 
-## Code scaffolding
+## ✨ Live Demo
+Explore the application here: [https://shortify-net.web.app/](https://shortify-net.web.app/)
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+---
 
-## Build
+## 🧩 Features
+- **Authentication**: Login via OTP or email-password.
+- **Password Management**: Forget password and reset password features.
+- **Link Management**:
+  - View links with destination URL favicons on the dashboard and detail screens.
+  - Edit functionality to update destination URLs while keeping the short URL unchanged.
+  - Delete URLs.
+  - Direct sharing on multiple social platforms.
+- **Security**:
+  - JWT-based authentication.
+  - Refresh tokens to extend idle login time.
+- **Upcoming Features**:
+  - Advanced analytics for tracking URL performance.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+> **Note**: Role-based access control (RBAC) features are supported on the backend but not yet implemented in the UI.
 
-## Running unit tests
+---
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## 🛠️ Installation and Setup
 
-## Running end-to-end tests
+### Prerequisites
+Ensure the following are installed on your system:
+- [Node.js](https://nodejs.org/) (LTS version recommended)
+- [Angular CLI](https://angular.io/cli)
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+### Steps
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/ScriptSage001/Shortify.Net-Client.git
+   cd shortify.net-client
+   ```
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Configure the environment:
+   - Update `src/environments/environment.ts` and `src/environments/environment.prod.ts` files with the appropriate API URLs.
+4. Run the application in development mode:
+   ```bash
+   ng serve
+   ```
+   Access the app at `http://localhost:4200/`.
+5. Build the application for production:
+   ```bash
+   ng build --configuration=production
+   ```
 
-## Further help
+---
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## 🍰 Contribution
+We welcome contributions! Please follow the guidelines outlined below:
+
+1. Fork the repository and create a new branch for your feature or bug fix.
+2. Ensure your changes adhere to the Angular coding standards.
+3. Test your changes thoroughly.
+4. Submit a pull request with a detailed description of your changes.
+
+---
+
+## 🌟 Acknowledgments
+This project leverages several open-source libraries and tools:
+- [Angular](https://angular.io/)
+- [RxJS](https://rxjs.dev/)
+- [Ng-Bootstrap](https://ng-bootstrap.github.io/)
+- [Font Awesome](https://fontawesome.com/)
+- [Ngx-Spinner](https://www.npmjs.com/package/ngx-spinner)
+- [Ngx-Toastr](https://github.com/scttcper/ngx-toastr)
+
+Thank you to the contributors and maintainers of these libraries for their incredible work!
+
+---
+
+## 🛡️ License
+<p>This project is licensed under the Apache License. See the <a href="https://github.com/ScriptSage001/Shortify.Net-Client/blob/master/LICENSE.txt">LICENSE</a> file for details.</p>
+
+---
+
+## 📸 Screenshots
+<p align="center"><img src="https://github.com/ScriptSage001/Shortify.Net-Client/blob/master/Assets/Images/UI%200.png?raw=true" alt="ui-landing"></p>
+<p align="center"><img src="https://github.com/ScriptSage001/Shortify.Net-Client/blob/master/Assets/Images/UI%201.png?raw=true" alt="ui-sign-in-with-password"></p>
+<p align="center"><img src="https://github.com/ScriptSage001/Shortify.Net-Client/blob/master/Assets/Images/UI%202.png?raw=true" alt="ui-sign-in-with-otp"></p>
+<p align="center"><img src="https://github.com/ScriptSage001/Shortify.Net-Client/blob/master/Assets/Images/UI%203.png?raw=true" alt="ui-sign-up"></p>
+<p align="center"><img src="https://github.com/ScriptSage001/Shortify.Net-Client/blob/master/Assets/Images/UI%204.png?raw=true" alt="ui-dashboard"></p>
+<p align="center"><img src="https://github.com/ScriptSage001/Shortify.Net-Client/blob/master/Assets/Images/UI%205.png?raw=true" alt="ui-links-list"></p>
+<p align="center"><img src="https://github.com/ScriptSage001/Shortify.Net-Client/blob/master/Assets/Images/UI%206.png?raw=true" alt="ui-delete-link-popup"></p>
