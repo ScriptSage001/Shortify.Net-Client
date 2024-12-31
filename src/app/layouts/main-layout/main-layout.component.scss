@@ -1,22 +1,5 @@
 @import '../../../styles.scss';
 
-.main {
-    margin-left: 240px;
-
-    .dropdown {
-        padding-right: 2rem;
-        cursor: pointer;
-    }
-
-    .navbar {
-        position: fixed;
-        top: 0;
-        right: 0;
-        left: 240px;
-        z-index: 999;
-    }
-}
-
 .dropdown-list-show {
     position: absolute; 
     inset: 0px auto auto 0px; 
@@ -93,5 +76,30 @@
             border-left: 8px solid #198754;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
+    }
+}
+
+@media (min-width: 577px) {
+    .main {
+        margin-left: 240px;
+    
+        .dropdown {
+            padding-right: 2rem;
+            cursor: pointer;
+        }
+    
+        .navbar {
+            position: fixed;
+            top: 0;
+            right: 0;
+            left: 240px;
+            z-index: 999;
+        }
+    }
+}
+
+@media (max-width: 576px) {
+    .outlet-margin {
+        margin-top: 8vh !important;
     }
 }

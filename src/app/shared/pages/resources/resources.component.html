@@ -1,0 +1,181 @@
+<div class="bg-body rounded 2 shadow p-3 p-lg-5">
+    <div class="heading proxima-bold fs-1 text-primary my-2 my-lg-0">
+        Resources - Shortify.NET
+    </div>
+    <div class="gs bg-body-tertiary shadow px-3 py-2 px-lg-5 py-lg-2 rounded-2">
+        <div class="title proxima-bold text-success fs-3">
+            Getting Started
+        </div>
+        <div class="body mt-2">
+            <div class="body-title proxima-bold fs-5">
+                How to Create a Short URL
+            </div>
+            <div class="body-content proxima-semi-bold fs-6 mt-1">
+                Shortify.NET makes it easy to create short URLs in just a few steps:
+                <ol>
+                    <li>
+                        Sign in to your account.
+                    </li>
+                    <li>
+                        Click on the <strong>Create New</strong> / <strong>Create Link</strong> button.
+                    </li>
+                    <img class="rounded-2 border border-dark w-100 shadow my-2" 
+                    src="Pages\CreateLink.png" alt="">
+                    <img class="rounded-2 border border-dark w-100 shadow my-2" 
+                    src="Pages\CreateLinkFromLinks.png" alt="">
+                    <li>
+                        Paste your long URL into the <strong>Destination</strong> field.
+                    </li>
+                    <li>
+                        Optionally, add tags or a title for better organization.
+                    </li>
+                    <li>
+                        Click <strong>Create</strong>. Your short URL is ready to share!
+                    </li>
+                </ol>
+            </div>
+            <div class="body-title proxima-bold fs-5">
+                Using Tags and Titles
+            </div>
+            <div class="body-content proxima-semi-bold fs-6 mt-1">
+                Tags and titles help you manage your URLs efficiently. Here’s how to use them:
+                <ul>
+                    <li>
+                        <strong>Tags:</strong> Add relevant keywords to group and find URLs quickly.
+                    </li>
+                    <li>
+                        <strong>Titles:</strong> Assign descriptive names to identify your URLs at a glance.
+                    </li>
+                </ul>
+            </div>
+            <div class="body-title proxima-bold fs-5">
+                Sharing Your Short URL
+            </div>
+            <div class="body-content proxima-semi-bold fs-6 mt-1">
+                Sharing your shortened URL is simple:
+                <ul>
+                    <li>
+                        Copy the generated short URL from the Dashboard, Details screen or Share popup.
+                    </li>
+                    <li>
+                        Share it via email, social media, or messaging platforms.
+                    </li>
+                    <li>
+                        Use the Share button on the Dashboard or Details screen for direct sharing options.
+                    </li>
+                </ul>
+            </div>
+            <div class="body-title proxima-bold fs-5">
+                Editing URL Details
+            </div>
+            <div class="body-content proxima-semi-bold fs-6 mt-1">
+                Keep your URLs updated with accurate details:
+                <ol>
+                    <li>
+                        Navigate to the <strong>Links</strong> section.
+                    </li>
+                    <li>
+                        Locate the URL you want to edit and click the <strong>Edit</strong> button (Pencil icon).
+                    </li>
+                    <li>
+                        Update the Title, Tags, or Destination URL as needed.
+                    </li>
+                    <li>
+                        Save your changes to keep everything organized.
+                    </li>
+                    <li>
+                        Additionaly you can edit the URL details from the Detail screen as well.
+                    </li>
+                </ol>
+            </div>
+            <div class="body-title proxima-bold fs-5">
+                Understanding URL Analytics (Coming Soon)
+            </div>
+            <div class="body-content proxima-semi-bold fs-6 mt-1">
+                Track your URLs' performance with the analytics feature:
+                <ul>
+                    <li>
+                        <strong>Click Metrics:</strong> See how many people clicked on your short URLs.
+                    </li>
+                    <li>
+                        <strong>Geographic Data:</strong> Know where your audience is located.
+                    </li>
+                    <li>
+                        <strong>Referrers Insights:</strong> Identify the most popular websites or platforms your URLs are accessed from.
+                    </li>
+                </ul>
+            </div>
+            <div class="body-title proxima-bold fs-5">
+                Role-Based Access Control
+            </div>
+            <div class="body-content proxima-semi-bold fs-6 mt-1">
+                Shortify.NET has two roles:
+                <ul>
+                    <li>
+                        <strong>Customer:</strong> Default role for all users; access basic features like URL creation and analytics.
+                    </li>
+                    <li>
+                        <strong>Admin:</strong> Advanced permissions for managing users and monitoring system-wide performance.
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="dev bg-body-tertiary shadow px-3 py-2 px-lg-5 py-lg-2 rounded-2 mt-3">
+        <div class="title proxima-bold text-success fs-3">
+            Developer Documentation
+        </div>
+        <div class="body mt-2">
+            <div class="body-title proxima-bold fs-5">
+                Useful Links
+            </div>
+            <div class="body-content proxima-semi-bold fs-6 mt-1">
+                <ul>
+                    <li>
+                        Backend Docker Image:
+                        <a href="https://hub.docker.com/r/thescriptsage/shortifynetapi" class="links" target="_blank">
+                            Docker Hub
+                        </a>
+                    </li>
+                    <li>
+                        API Documentation:
+                        <a [href]="getSwaggerUrl()" class="links" target="_blank">
+                            Swagger Docs
+                        </a>
+                    </li>
+                    <li>
+                        Frontend Repository:
+                        <a href="https://github.com/ScriptSage001/Shortify.Net-Client" class="links" target="_blank">
+                            GitHub UI
+                        </a>
+                    </li>
+                    <li>
+                        Backend Repository:
+                        <a href="https://github.com/ScriptSage001/Shortify.NET" class="links" target="_blank">
+                            GitHub Backend
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="body-title proxima-bold fs-5">
+                Setting Up Development Environment
+            </div>
+            <div class="body-content proxima-semi-bold fs-6 mt-1">
+                <ol>
+                    <li>
+                        Clone the frontend and backend repositories from GitHub.
+                    </li>
+                    <li>
+                        Or use Docker to pull the backend image from Docker Hub for the backend.
+                    </li>
+                    <li>
+                        Configure environment variables as mentioned in the respective README files.
+                    </li>
+                    <li>
+                        Start the backend server and then launch the Angular frontend.
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>

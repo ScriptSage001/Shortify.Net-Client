@@ -9,6 +9,7 @@ export class AuthMappingService extends BaseService {
   private readonly LOGIN = 'login';
   private readonly LOGIN_WITH_OTP = 'login/otp';
   private readonly FORGOT_PASSWORD = 'password/reset/forgot';
+  private readonly RESET_PASSWORD = 'password/reset';
   private readonly REFRESH_TOKEN = 'token/refresh';
   private readonly REVOKE_REFRESH_TOKEN = 'token/refresh/revoke';
 
@@ -30,6 +31,10 @@ export class AuthMappingService extends BaseService {
 
   public getForgotPasswordUrl() {
     return this.authManagementUrl + this.FORGOT_PASSWORD;
+  }
+
+  public getResetPasswordUrl() {
+    return this.authManagementUrl + this.RESET_PASSWORD;
   }
 
   public getRefreshTokenUrl() {

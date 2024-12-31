@@ -1,7 +1,7 @@
 <div class="landing-main">
-    <app-navbar></app-navbar>
+    <app-navbar (routeChanged)="routeChanged($event)"></app-navbar>
 
-    <div class="landing-body p-5 w-100 d-flex flex-column align-items-center justify-content-center text-center">
+    <div *ngIf="!isRouterView" class="landing-body p-5 w-100 d-flex flex-column align-items-center justify-content-center text-center">
         <div class="landing-heading proxima-bold fs-1 scale-1-1 my-4 text-success
         border-gradient border-gradient-success only-bottom">
             Connect Your Audience with Simplicity
@@ -33,6 +33,10 @@
         </div>
     </div>
     
+    <div *ngIf="isRouterView" class="mt-5 pt-4 pt-lg-0" [@routerFadeIn]="getRouteUrl()">
+        <router-outlet/>
+    </div>
+
     <footer class="bg-success text-center text-lg-start text-white">
 
         <div class="container p-3">
@@ -96,7 +100,7 @@
 
                     <ul class="list-unstyled proxima-bold">
                         <li class="mb-2">
-                            <a href="https://shortify-net.onrender.com/swagger/index.html" class="links" target="_blank">
+                            <a [href]="getSwaggerUrl()" class="links" target="_blank">
                                 <i class="fas fa-file pe-3"></i>
                                 &nbsp;API Documentation
                             </a>

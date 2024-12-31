@@ -3,7 +3,6 @@ import { ToastrService } from "ngx-toastr";
 import { ProblemDetails } from "../models/problem-details";
 import { Router } from "@angular/router";
 import { Injectable } from "@angular/core";
-import { UserService } from "../services/user/user.service";
 
 @Injectable({
     providedIn: 'root'
@@ -12,7 +11,6 @@ import { UserService } from "../services/user/user.service";
 export class HttpErrorHandlerUtils {
 
     constructor(
-        private userService: UserService,
         private toastr: ToastrService,
         private router: Router
     ) {}
@@ -60,7 +58,10 @@ export class HttpErrorHandlerUtils {
             } else if (problemDetails.errors['Email']) {
                 this.toastr.error(problemDetails.errors['Email'][0]);
             } else if (problemDetails.errors['Error.ValidationError']) {
-                this.toastr.error(problemDetails.errors['Error.ValidationError'][0]);
+                this.toastr.error(
+                    problemDetails.errors[''][0],
+                    problemDetails.errors['Error.ValidationError'][0]
+                );
             } else {
                 this.toastr.error(`Request failed: ${problemDetails.title}`);
             }

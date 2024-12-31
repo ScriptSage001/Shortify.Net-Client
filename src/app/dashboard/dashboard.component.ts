@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../shared/services/user/user.service';
 import { UserProfile } from '../shared/models/user-profile';
 import { UrlService } from '../shared/services/url/url.service';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { NgIf } from '@angular/common';
 
@@ -11,7 +11,8 @@ import { NgIf } from '@angular/common';
   selector: 'app-dashboard',
   standalone: true,
   imports: [
-    NgIf
+    NgIf,
+    RouterLink
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss'

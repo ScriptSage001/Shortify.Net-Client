@@ -1,4 +1,4 @@
-<div class="create-link-wrapper">
+<div class="create-link-wrapper pb-1 pb-lg-0">
     <!-- Heading -->
     <div class="heading d-flex justify-content-between">
         <div class="display-6 proxima-bold">
@@ -13,7 +13,7 @@
     <hr class="divider mt-3">
 
     <div class="create-form bg-primary-subtle my-4 rounded-2">
-        <div class="p-5">
+        <div class="p-3 p-lg-5">
             <form [formGroup]="form">
                 <div class="mb-3">
                     <div class="my-2 proxima-bold fs-3"> Title </div>
@@ -43,7 +43,7 @@
                 <div class="mb-3">
                     <div class="my-2 proxima-bold fs-3"> 
                         Original URL
-                        <button type="button" class="btn btn-information text-secondary" placement="end" 
+                        <button type="button" class="btn btn-information text-secondary" placement="top" 
                         ngbTooltip="Modify this URL to update the redirection target of the short link.">
                             <i class="fas fa-circle-info"></i>
                         </button>
@@ -51,14 +51,9 @@
                     <div class="input-group">
                         <input class="form-control bg-body-primary" formControlName="originalUrl">
                         <div class="input-group-append" (click)="switchEditMode('originalUrl')">
-                            <span *ngIf="!isOriginalUrlInEditMode"
-                                class="btn btn-warning input-group-text apend-span d-flex proxima-semi-bold">
-                                <i class="fa fa-pencil"></i>
-                            </span>
-                            <span *ngIf="isOriginalUrlInEditMode"
-                                class="btn btn-warning input-group-text apend-span-with-text d-flex proxima-semi-bold">
-                                <i class="fa fa-check me-2"></i>
-                                Destination will be changed
+                            <span class="btn btn-warning input-group-text apend-span d-flex">
+                                <i *ngIf="!isOriginalUrlInEditMode" class="fa fa-pencil"></i>
+                                <i *ngIf="isOriginalUrlInEditMode" class="fa fa-check"></i>
                             </span>
                         </div>
                     </div>
@@ -72,7 +67,7 @@
                 <div class="mb-3">
                     <div class="my-2 proxima-bold fs-3"> 
                         Tags <span class="fs-5">(Optional)</span>
-                        <button type="button" class="btn btn-information text-secondary" placement="end" 
+                        <button type="button" class="btn btn-information text-secondary" placement="top" 
                         ngbTooltip="To add tags, type a tag and press Enter or Tab before saving. You can add multiple tags.">
                             <i class="fas fa-circle-info"></i>
                         </button>

@@ -1,4 +1,4 @@
-<div *ngIf="shortenLink" class="detailed-link-wrapper">
+<div *ngIf="shortenLink" class="detailed-link-wrapper pb-1 pb-lg-0">
     <!-- Heading -->
     <div class="heading">
         <button type="button" class="btn btn-outline-primary proxima-semi-bold fs-5 py-2" routerLink="/links">
@@ -9,7 +9,7 @@
 
     <hr class="divider mt-3">
 
-    <div class="bg-light rounded-2 my-4 link-detail">
+    <div class="bg-light rounded-2 my-4 link-detail d-none d-lg-block shadow">
         <div class="d-flex px-2 py-3 align-items-center">
             <div class="col url-details px-4">
                 <div class="d-flex align-items-center">
@@ -52,7 +52,7 @@
                 <div class="original-url proxima-bold py-2">
                     <div class="fs-4 text-success">Original Url</div>
                     <div class="d-flex align-items-center">
-                        <div class="fs-6 text-truncate">
+                        <div class="fs-6 text-truncate" placement="top" ngbTooltip="{{ shortenLink.originalUrl }}">
                             {{ shortenLink.originalUrl }}
                         </div>
                         <button class="btn btn-primary ms-2">
@@ -79,16 +79,89 @@
         </div>
     </div>
 
+    <div class="bg-light rounded-2 shadow d-block d-lg-none link-detail">
+        <div class="container px-3 py-2 align-items-center">
+            <div class="row align-items-center">
+                <div class="col-2">
+                    <img [src]="getFavIconUrl(shortenLink.originalUrl)" alt="Favicon" width="50" height="50" 
+                    class="rounded-circle ms-1">
+                </div>
+
+                <div class="col-10 d-flex align-items-center">
+                    <div class="text-primary proxima-bold fs-2 ms-2">
+                        {{ shortenLink.title || (getDomain(shortenLink.originalUrl) + ' | untitled') }}
+                    </div>
+                    <button class="ms-1 btn btn-light" (click)="onEdit()">
+                        <i class="fa fa-pencil"></i>
+                    </button>
+                </div>
+            </div>
+            <hr class="divider">
+            <div class="row proxima-bold">
+                <div class="col-12 fs-4 text-success">Shortened Url</div>
+            </div>
+            <div class="row proxima-bold">
+                <div class="col d-flex justify-content-between align-items-center">
+                    <a class="fs-6" href="{{ shortenLink.shortUrl }}" target="_blank">
+                        {{ shortenLink.shortUrl }}
+                    </a>
+                    <button class="ms-1 btn btn-light" [disabled]="isLinkCopied" (click)="copyToClipboard(shortenLink.shortUrl)">
+                        <i class="fa-regular fa-copy"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="row proxima-bold">
+                <div class="col fs-4 text-success">Original Url</div>
+            </div>
+            <div class="row proxima-bold">
+                <div class="col d-flex justify-content-between align-items-center">
+                    <div class="fs-6 text-truncate">
+                        {{ shortenLink.originalUrl }}
+                    </div>
+                    <button class="btn btn-primary ms-2">
+                        <a href="{{ shortenLink.originalUrl }}" target="_blank">
+                            <i class="fas fa-arrow-up-right-from-square text-light"></i>
+                        </a>
+                    </button>
+                </div>
+            </div>
+            <hr class="divider">
+            <div class="row">
+                <div class="col align-items-center">
+                    <i class="fa-regular fa-calendar pe-2"></i>
+                    {{ formatDateForDetail(shortenLink.createdOnUtc) }}
+                </div>
+            </div>
+            <div class="row my-1">
+                <div class="col align-items-center">
+                    <i class="fa fa-tag pe-2"></i>
+                    {{ shortenLink.tags?.join(', ') || 'No Tags' }}            
+                </div>
+            </div>
+            <hr class="divider">
+            <div class="row me-1 mb-1 justify-content-end">
+                <button class="col-4 me-2 btn btn-primary" type="button" (click)="onShareModalOpen()">
+                    <i class="fa fa-share pe-1"></i>
+                    Share
+                </button>
+                <button class="col-4 btn btn-danger" type="button" (click)="onDeleteModalOpen()">
+                    <i class="fas fa-trash-can pe-1"></i>
+                    Delete
+                </button>
+            </div>
+        </div>
+    </div>
+
     <hr class="divider mt-3">
 
-    <div class="bg-light rounded-2 my-4 analytics">
+    <div class="bg-light rounded-2 my-4 analytics shadow">
         <div class="d-flex px-2 py-3 align-items-center">
-            <div class="col analytics-details px-4">
-                <div class="d-flex align-items-center">
-                    <div class="col-1">
-                        <i class="fa fa-chart-simple scale-2 ms-4 ps-2"></i>
+            <div class="col analytics-details px-2 px-lg-4">
+                <div class="row align-items-center">
+                    <div class="col-2 col-lg-1 ms-0 ms-lg-2">
+                        <i class="fa fa-chart-simple scale-2 ps-2 ms-0 ms-lg-2"></i>
                     </div>
-                    <div class="col title text-primary proxima-bold fs-2">
+                    <div class="col-10 title text-primary proxima-bold fs-2">
                         Analytics
                     </div>
                 </div>

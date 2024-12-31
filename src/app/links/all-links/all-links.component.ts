@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NgFor, NgIf, DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
-import { NgbDatepickerModule, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDatepickerModule, NgbPaginationModule, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { ShortenLink } from '../../shared/models/shorten-link';
 import { DatePickerComponent } from "../../shared/utils/date-picker/date-picker.component";
@@ -27,7 +27,8 @@ import { UserService } from '../../shared/services/user/user.service';
     DatePickerComponent,
     ShareModalComponent,
     DeleteModalComponent,
-    SortModalComponent
+    SortModalComponent,
+    NgbTooltipModule
   ],
   providers: [
     DatePipe
@@ -199,6 +200,7 @@ export class AllLinksComponent {
     navigator.clipboard.writeText(link.shortUrl).then(
       () => {
         link.isCopiedFromCard = true;
+        this.toastr.info('URL copied to clipboard!');
         setTimeout(() => {
           link.isCopiedFromCard = false;
         }, 1000);

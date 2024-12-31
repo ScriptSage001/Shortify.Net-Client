@@ -7,6 +7,7 @@ import { ShortenLink } from '../../shared/models/shorten-link';
 import { UrlService } from '../../shared/services/url/url.service';
 import { ShareModalComponent } from '../../shared/utils/share-modal/share-modal.component';
 import { DeleteModalComponent } from '../../shared/utils/delete-modal/delete-modal.component';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-detailed-link',
@@ -15,7 +16,8 @@ import { DeleteModalComponent } from '../../shared/utils/delete-modal/delete-mod
     NgIf,
     RouterLink,
     ShareModalComponent,
-    DeleteModalComponent
+    DeleteModalComponent,
+    NgbTooltipModule
   ],
   templateUrl: './detailed-link.component.html',
   styleUrl: './detailed-link.component.scss'
@@ -92,6 +94,7 @@ export class DetailedLinkComponent implements OnInit {
     navigator.clipboard.writeText(link).then(
       () => {
         this.isLinkCopied = true;
+        this.toastr.info('URL copied to clipboard!');
         setTimeout(() => {
           this.isLinkCopied = false;
         }, 1000);

@@ -20,6 +20,11 @@ body::-webkit-scrollbar {
     margin-top: 0.1rem !important;
 }
 
+.text-justify {
+    text-align: justify;
+    text-justify: inter-word;
+}
+
 .btn-information {
     border: none;
 }

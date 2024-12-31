@@ -1,5 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { ChildrenOutletContexts, Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { animate, query, style, transition, trigger } from '@angular/animations';
 import { NgbOffcanvas } from '@ng-bootstrap/ng-bootstrap';
 
 import { AuthService } from '../../shared/services/auth/auth.service';
@@ -16,7 +17,18 @@ import { OffcanvasNavbarComponent } from '../../offcanvas-navbar/offcanvas-navba
     RouterLinkActive
   ],
   templateUrl: './main-layout.component.html',
-  styleUrl: './main-layout.component.scss'
+  styleUrl: './main-layout.component.scss',
+  animations: [
+    trigger('routerFadeIn', [
+      transition('* <=> *', [
+        query(':enter', [
+          style({ opacity: 0}),
+          animate('1s ease-in-out', 
+            style({ opacity: 1 }))
+        ], { optional: true })
+      ])
+    ])
+  ]
 })
 export class MainLayoutComponent implements OnInit {
 
@@ -26,7 +38,8 @@ export class MainLayoutComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private userService: UserService,
-    private router: Router
+    private router: Router,
+    private context: ChildrenOutletContexts
   ) { }
 
   ngOnInit(): void {
@@ -72,5 +85,9 @@ export class MainLayoutComponent implements OnInit {
     offcanvasRef.componentInstance.userName = this.userDetails?.userName;
     offcanvasRef.componentInstance.email = this.userDetails?.email;
     offcanvasRef.componentInstance.onSignOutTriggered = () => this.onLogout();
+  }
+
+  public getRouteUrl() {
+    return this.context.getContext('primary')?.route?.url;
   }
 }

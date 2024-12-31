@@ -8,8 +8,9 @@
                     (click)="closeModal()"></button>
             </div>
             <div class="modal-body">
-                <!-- Carousel Container -->
-                <div id="shareCarousel" class="carousel slide align-items-center" data-bs-interval="false">
+                <!-- Carousel Container LG -->
+                <div id="shareCarousel" class="carousel slide align-items-center d-none d-lg-block" data-bs-interval="false">
+                    
                     <div class="carousel-inner px-5">
                         <!-- First Slide -->
                         <div class="carousel-item active">
@@ -54,6 +55,7 @@
                             </div>
                         </div>
                     </div>
+
                     <!-- Carousel Controls -->
                     <button class="carousel-control-prev" type="button" data-bs-target="#shareCarousel"
                         data-bs-slide="prev">
@@ -66,10 +68,85 @@
                         <span class="visually-hidden">Next</span>
                     </button>
                 </div>
+
+                <!-- Carousel Container SM -->
+                <div id="shareCarouselSm" class="carousel slide align-items-center d-block d-lg-none" 
+                data-bs-interval="false">
+                    
+                    <div class="carousel-inner px-5">
+                        <!-- First Slide -->
+                        <div class="carousel-item active">
+                            <div class="d-flex justify-content-center gap-4">
+                                <a class="share-icon btn btn-outline-dark p-2" [href]="getWhatsAppUrl()" target="_blank">
+                                    <i class="fa-brands fa-whatsapp fs-2"></i>
+                                    <p class="m-0">WhatsApp</p>
+                                </a>
+                                <a class="share-icon btn btn-outline-dark p-2" [href]="getFBUrl()" target="_blank">
+                                    <i class="fa-brands fa-facebook fs-2"></i>
+                                    <p class="m-0">Facebook</p>
+                                </a>
+                            </div>
+                        </div>
+                        <!-- Second Slide -->
+                        <div class="carousel-item">
+                            <div class="d-flex justify-content-center gap-4">
+                                <a class="share-icon btn btn-outline-dark p-2" href="https://www.instagram.com" target="_blank">
+                                    <i class="fa-brands fa-instagram fs-2"></i>
+                                    <p class="m-0">Instagram</p>
+                                </a>
+                                <a class="share-icon btn btn-outline-dark p-2" [href]="getXUrl()" target="_blank">
+                                    <i class="fa-brands fa-x-twitter fs-2"></i>
+                                    <p class="m-0">X</p>
+                                </a>
+                            </div>
+                        </div>
+                        <!-- Third Slide -->
+                        <div class="carousel-item">
+                            <div class="d-flex justify-content-center gap-4">
+                                <a class="share-icon btn btn-outline-dark p-2" [href]="getThreadsUrl()" target="_blank">
+                                    <i class="fa-brands fa-threads fs-2"></i>
+                                    <p class="m-0">Threads</p>
+                                </a>
+                                <a class="share-icon btn btn-outline-dark p-2" [href]="getMailUrl()" target="_blank">
+                                    <i class="fa-solid fa-envelope fs-2"></i>
+                                    <p class="m-0">Email</p>
+                                </a>
+                            </div>
+                        </div>
+                        <!-- Fourth Slide -->
+                        <div class="carousel-item">
+                            <div class="d-flex justify-content-center gap-4">
+                                <a class="share-icon btn btn-outline-dark p-2" [href]="getLinkedInUrl()" target="_blank">
+                                    <i class="fa-brands fa-linkedin-in fs-2"></i>
+                                    <p class="m-0">LinkedIn</p>
+                                </a>
+                                <a class="share-icon btn btn-outline-dark p-2" [href]="getTelegramUrl()" target="_blank">
+                                    <i class="fa-brands fa-telegram fs-2"></i>
+                                    <p class="m-0">Telegram</p>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Carousel Controls -->
+                    <button class="carousel-control-prev" type="button" data-bs-target="#shareCarouselSm"
+                        data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon bg-dark-subtle rounded-circle" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#shareCarouselSm"
+                        data-bs-slide="next">
+                        <span class="carousel-control-next-icon bg-dark-subtle rounded-circle" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
             </div>
             <div class="modal-footer">
-                <div class="modal-footer-link-box rounded-2 p-2 w-100">
-                    <div class="proxima-bold ps-2 fs-5">
+                <div class="modal-footer-link-box rounded-2 p-1 p-lg-2 w-100">
+                    <div class="proxima-bold ps-2 fs-6 d-block d-lg-none">
+                        {{ shortUrl }}
+                    </div>
+                    <div class="proxima-bold ps-2 fs-5 d-none d-lg-block">
                         {{ shortUrl }}
                     </div>
                     <button type="button" class="btn btn-primary" [disabled]="isCopied" (click)="copyToClipboard()">

@@ -26,41 +26,48 @@
                 </div>
             </div>
             <li><hr class="divider"></li>
-            <button class="btn btn-primary mb-3 proxima-semi-bold fs-5" routerLink="/links/create">
+            <button class="btn btn-primary mb-3 proxima-semi-bold fs-5" 
+            routerLink="/links/create" (click)="activeOffcanvas.dismiss('Cross click')">
                 Create New
             </button>
             <li><hr class="divider mt-0"></li>
             <li class="nav-item">
-                <a routerLink="/dashboard" routerLinkActive="active" id="dashboard" class="nav-link fs-5">
-                    <i class="fas fa-home px-2" aria-hidden="true"></i>
+                <a routerLink="/dashboard" routerLinkActive="active" id="dashboard" 
+                class="nav-link fs-5" (click)="activeOffcanvas.dismiss('Cross click')">
+                    <i class="fas fa-home pe-2" aria-hidden="true"></i>
                     Home
                 </a>
             </li>
             <li class="nav-item">
-                <a routerLink="/links" routerLinkActive="active" id="links" class="nav-link fs-5">
-                    <i class="fas fa-link px-2" aria-hidden="true"></i>
+                <a routerLink="/links" routerLinkActive="active" id="links" 
+                class="nav-link fs-5" (click)="activeOffcanvas.dismiss('Cross click')">
+                    <i class="fas fa-link pe-2" aria-hidden="true"></i>
                     Links
                 </a>
             </li>
             <li class="nav-item">
-                <a routerLink="/settings" routerLinkActive="active" id="settings" class="nav-link fs-5">
-                    <i class="fas fa-gear px-2" aria-hidden="true"></i>
+                <a routerLink="/settings" routerLinkActive="active" id="settings" 
+                class="nav-link fs-5" (click)="activeOffcanvas.dismiss('Cross click')">
+                    <i class="fas fa-gear pe-2" aria-hidden="true"></i>
                     Settings
                 </a>
             </li>
             <li><hr class="divider mt-0"></li>
             <li class="nav-item">
-                <a class="nav-link fs-5" routerLink="/about" routerLinkActive="active" id="about">
+                <a class="nav-link fs-5" routerLink="/about" routerLinkActive="active" 
+                id="about" (click)="activeOffcanvas.dismiss('Cross click')">
                     About Us
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link fs-5" routerLink="/resources" routerLinkActive="active" id="resources">
+                <a class="nav-link fs-5" routerLink="/resources" routerLinkActive="active" 
+                id="resources" (click)="activeOffcanvas.dismiss('Cross click')">
                     Resources
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link fs-5" routerLink="/tandc" routerLinkActive="active" id="tandc">
+                <a class="nav-link fs-5" routerLink="/tandc" routerLinkActive="active" 
+                id="tandc" (click)="activeOffcanvas.dismiss('Cross click')">
                     Terms & Conditions
                 </a>
             </li>

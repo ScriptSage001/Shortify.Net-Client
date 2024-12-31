@@ -13,34 +13,34 @@
 
     .url-details {
         width: 100px;
+    }
 
-        .transparent-icon {
-            background: none;
-            border: none;
-        }
+    .transparent-icon {
+        background: none;
+        border: none;
+    }
 
-        .transparent-icon:hover {
-            background-color: #d3d4d5;
+    .transparent-icon:hover {
+        background-color: #d3d4d5;
+        color: black;
+    }
+
+    a {
+        text-decoration: none;
+    }
+
+    a:hover {
+        text-decoration: underline;
+    }
+
+    .original-url {
+        a {
             color: black;
         }
+    }
 
-        a {
-            text-decoration: none;
-        }
-
-        a:hover {
-            text-decoration: underline;
-        }
-
-        .original-url {
-            a {
-                color: black;
-            }
-        }
-
-        .title:hover {
-            text-decoration: underline;
-        }
+    .title:hover {
+        text-decoration: underline;
     }
 }
 

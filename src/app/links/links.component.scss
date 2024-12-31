@@ -1,8 +1,8 @@
-.links-bg {
-    background-color: white;
-    position: absolute;
-    top: 100px;
-    right: 50px;
-    left: 290px;
-
+@media (min-width: 577px) {
+    .links-bg {
+        position: absolute;
+        top: 100px;
+        right: 50px;
+        left: 290px;
+    }
 }

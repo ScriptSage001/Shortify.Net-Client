@@ -6,29 +6,27 @@
     }
 
     .link-detail {
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-
         .url-details {
             width: 100px;
 
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .original-url {
             a {
-                text-decoration: none;
-            }
-
-            a:hover {
-                text-decoration: underline;
-            }
-
-            .original-url {
-                a {
-                    color: black;
-                }
+                color: black;
             }
         }
     }
 
     .analytics {
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 
         .analytics-details {
             width: 100px;

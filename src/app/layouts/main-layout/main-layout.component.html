@@ -34,8 +34,8 @@
     </ul>
 </nav>
 
-<div class="main d-none d-lg-block d-md-block">
-    <nav class="navbar bg-body-tertiary">
+<div class="main">
+    <nav class="navbar bg-body-tertiary d-none d-lg-block d-md-block">
         <div class="container-fluid px-5 py-1 justify-content-end">
             <!-- <form class="d-flex" role="search">
                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
@@ -76,36 +76,20 @@
         </div>
     </nav>
 
-    <div class="mt-5 p-5">
+    <nav class="navbar bg-body-tertiary d-block d-md-none d-lg-none shadow fixed-top">
+        <div class="container p-2">
+            <a routerLink="" class="navbar-brand logo-container">
+                <img class="logo d-block scale-1-1 ps-2" alt="Shortify.NET Logo" src="Shortify-Full-Logo-Horizontal-Black-Transparent.png">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarButtons" 
+            aria-controls="navbarButtons" aria-expanded="false" aria-label="Toggle Navigation" (click)="openOffcanvas()">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+    </nav>
+
+    <div class="my-0 my-md-5 my-lg-5 p-3 p-md-5 p-lg-5 outlet-margin"
+        [@routerFadeIn]="getRouteUrl()">
         <router-outlet />
     </div>
 </div>
-
-<nav class="navbar bg-body-tertiary d-block d-md-none d-lg-none shadow">
-    <div class="container p-2">
-        <a routerLink="" class="navbar-brand logo-container">
-            <img class="logo d-block scale-1-1 ps-2" alt="Shortify.NET Logo" src="Shortify-Full-Logo-Horizontal-Black-Transparent.png">
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarButtons" 
-        aria-controls="navbarButtons" aria-expanded="false" aria-label="Toggle Navigation" (click)="openOffcanvas()">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-    </div>
-</nav>
-
-<!-- <div class="container p-3 d-block d-md-none d-lg-none" id="navbar-sm">
-    <div class="row text-center gap-3 nav">
-        <div class="col nav-item rounded-pill proxima-bold">
-            <a class="nav-link active" href=""></a>
-            Home
-        </div>
-        <div class="col nav-item rounded-pill proxima-bold">
-            <a class="nav-link" href=""></a>
-            Links
-        </div>
-        <div class="col nav-item rounded-pill proxima-bold">
-            <a class="nav-link" href=""></a>
-            Settings
-        </div>
-    </div>
-</div> -->

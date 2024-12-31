@@ -1,1 +1,255 @@
-<p>settings works!</p>
+<div *ngIf="user" class="bg-body rounded-2 shadow p-3 p-lg-5 mb-4">
+    <div class="container">
+        <div class="row">
+            <div class="col proxima-bold fs-1">
+                Profile
+            </div>
+        </div>
+        <hr class="divider mt-0">
+        <div class="row">
+            <div class="col proxima-bold fs-5 mb-1">
+                UserName
+            </div>
+        </div>
+        <div class="row">
+            <div class="col input-group">
+                <input class="w-100 bg-body-primary rounded-2 proxima-semi-bold fs-5 mb-2 px-2"
+                type="text" [placeholder]="user.userName" disabled>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col">
+                <button class="btn btn-secondary proxima-bold" disabled>
+                    Update UserName
+                </button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col proxima-bold fs-5">
+                Emai Address
+            </div>
+        </div>
+        <div class="row">
+            <div class="col input-group">
+                <input class="w-100 bg-body-primary rounded-2 proxima-semi-bold fs-5 mb-2 px-2"
+                type="text" [placeholder]="user.email" disabled>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <button class="btn btn-secondary proxima-bold" disabled>
+                    Change Email
+                </button>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col proxima-bold fs-1">
+                Security
+            </div>
+        </div>
+        <hr class="divider mt-0">
+        <div class="row">
+            <div class="col proxima-bold fs-4 mb-1">
+                Change password
+            </div>
+        </div>
+        <div class="row">
+            <div class="col proxima-semi-bold fs-6 mb-1">
+                You will be required to login after changing your password.
+            </div>
+        </div>
+        <form [formGroup]="passwordResetForm">
+            <div>
+                <div class="proxima-bold fs-5 my-1">
+                    Current password
+                </div>
+                <div class="input-group mb-2">
+                    <input class="form-control bg-body-primary proxima-semi-bold" 
+                    [type]="currentPasswordTextType ? 'text' : 'password'" formControlName="currentPassword" autocomplete="current-password">
+                    <div class="input-group-append">
+                        <span class="input-group-text apend-span">
+                            <i class="fa" [ngClass]="{
+                                          'fa-eye-slash': !currentPasswordTextType,
+                                          'fa-eye': currentPasswordTextType
+                                        }" (click)="toggleFieldTextType('currentPassword')"></i>
+                        </span>
+                    </div>
+                </div>
+                <div class="error-feedback" *ngIf="hasDisplayableError('currentPassword')">
+                    <div *ngIf="passwordResetForm.controls.currentPassword.hasError('required')">
+                        Please enter your current password.
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="proxima-bold fs-5 my-1">
+                    New password
+                </div>
+                <div class="input-group mb-2">
+                    <input class="form-control bg-body-primary proxima-semi-bold" 
+                    type="password" formControlName="newPassword" autocomplete="new-password">
+                    <div class="input-group-append">
+                        <span class="input-group-text apend-span">
+                            <i class="fa" [ngClass]="{
+                                          'fa-eye-slash': !newPasswordTextType,
+                                          'fa-eye': newPasswordTextType
+                                        }" (click)="toggleFieldTextType('newPassword')"></i>
+                        </span>
+                    </div>
+                </div>
+                <div class="error-feedback" *ngIf="hasDisplayableError('newPassword')">
+                    <ng-container [ngSwitch]="passwordResetForm.controls.newPassword.errors | firstKey" ]>
+                        <div *ngSwitchCase="'required'">
+                            Please enter a password.
+                        </div>
+                        <div *ngSwitchCase="'minlength'">
+                            Atleast 8 characters needed.
+                        </div>
+                        <div *ngSwitchCase="'maxlength'">
+                            Maximum 30 characters.
+                        </div>
+                        <div *ngSwitchCase="'pattern'">
+                            Must have one or more special character(s).
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+            <div>
+                <div class="proxima-bold fs-5 my-1">
+                    Confirm password
+                </div>
+                <div class="input-group mb-2">
+                    <input class="form-control bg-body-primary proxima-semi-bold" 
+                    type="password" formControlName="confirmPassword" autocomplete="new-password">
+                    <div class="input-group-append">
+                        <span class="input-group-text apend-span">
+                            <i class="fa" [ngClass]="{
+                                          'fa-eye-slash': !confirmPasswordTextType,
+                                          'fa-eye': confirmPasswordTextType
+                                        }" (click)="toggleFieldTextType('confirmPassword')"></i>
+                        </span>
+                    </div>
+                </div>
+                <div class="error-feedback" 
+                    *ngIf="hasDisplayableError('confirmPassword') && passwordResetForm.controls.confirmPassword.hasError('passwordMismatch')">
+                  Passwords doesn't match.
+                </div>
+            </div>
+            <div class="mt-1">
+                <button type="submit" class="btn btn-primary proxima-bold" (click)="onPasswordChange()">
+                    Change Password
+                </button>
+            </div>
+        </form>
+        <div class="row mt-3">
+            <div class="col proxima-bold fs-4 mb-1">
+                Forgot password
+            </div>
+        </div>
+        <div class="row">
+            <div class="col proxima-semi-bold fs-6 mb-1">
+                Reset password using OTP. You will be required to login after changing your password.
+            </div>
+        </div>
+        <form [formGroup]="forgotPasswordForm">
+            <div *ngIf="!isOtpSent"  class="mt-1">
+                <button class="btn btn-primary proxima-bold" (click)="sendOtp()">
+                    Send OTP
+                </button>
+            </div>
+            <div *ngIf="isOtpSent && !isOtpVerified">
+                <div class="mt-1 proxima-bold">
+                    Otp sent successfully to <span class="text-success">{{ user.email }}</span>.
+                </div>
+                <div class="proxima-bold fs-5 my-1">
+                    Enter OTP
+                </div>
+                <div class="input-group mb-2">
+                    <input class="form-control bg-body-primary proxima-semi-bold" 
+                    type="text" formControlName="otp" autocomplete="current-password">
+                </div>
+                <div class="error-feedback" 
+                    *ngIf="hasDisplayableErrorInForgerPassword('otp') && forgotPasswordForm.controls.otp.hasError('required')">
+                  Plese enter the OTP.
+                </div>
+                <div class="mt-1">
+                    <button class="btn btn-primary proxima-bold" (click)="verifyOtp()">
+                        Verify OTP
+                    </button>
+                </div>
+                <div class="otp-timer text-info" *ngIf="resendTimer > 0">
+                    Resend available in {{ resendTimer }} seconds
+                </div>
+                <div class="mt-2">
+                    <button *ngIf="resendTimer <= 0" (click)="reSendOtp()" 
+                    class="btn btn-secondary">
+                        Resend OTP
+                    </button>
+                </div>
+            </div>
+            <div *ngIf="isOtpVerified">
+                <div>
+                    <div class="proxima-bold fs-5 my-1">
+                        New password
+                    </div>
+                    <div class="input-group mb-2">
+                        <input class="form-control bg-body-primary proxima-semi-bold" 
+                        type="password" formControlName="newPassword" autocomplete="new-password">
+                        <div class="input-group-append">
+                            <span class="input-group-text apend-span">
+                                <i class="fa" [ngClass]="{
+                                              'fa-eye-slash': !newPasswordFpTextType,
+                                              'fa-eye': newPasswordFpTextType
+                                            }" (click)="toggleFieldTextType('newPasswordFp')"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="error-feedback" *ngIf="hasDisplayableErrorInForgerPassword('newPassword')">
+                        <ng-container [ngSwitch]="forgotPasswordForm.controls.newPassword.errors | firstKey" ]>
+                            <div *ngSwitchCase="'required'">
+                                Please enter a password.
+                            </div>
+                            <div *ngSwitchCase="'minlength'">
+                                Atleast 8 characters needed.
+                            </div>
+                            <div *ngSwitchCase="'maxlength'">
+                                Maximum 30 characters.
+                            </div>
+                            <div *ngSwitchCase="'pattern'">
+                                Must have one or more special character(s).
+                            </div>
+                        </ng-container>
+                    </div>
+                </div>
+                <div>
+                    <div class="proxima-bold fs-5 my-1">
+                        Confirm password
+                    </div>
+                    <div class="input-group mb-2">
+                        <input class="form-control bg-body-primary proxima-semi-bold" 
+                        type="password" formControlName="confirmPassword" autocomplete="new-password">
+                        <div class="input-group-append">
+                            <span class="input-group-text apend-span">
+                                <i class="fa" [ngClass]="{
+                                              'fa-eye-slash': !confirmPasswordFpTextType,
+                                              'fa-eye': confirmPasswordFpTextType
+                                            }" (click)="toggleFieldTextType('confirmPasswordFp')"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="error-feedback" 
+                        *ngIf="hasDisplayableErrorInForgerPassword('confirmPassword') && 
+                        forgotPasswordForm.controls.confirmPassword.hasError('passwordMismatch')">
+                      Passwords doesn't match.
+                    </div>
+                </div>
+                <div class="mt-1">
+                    <button type="submit" class="btn btn-primary proxima-bold" (click)="onForgetPassword()">
+                        Change Password
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

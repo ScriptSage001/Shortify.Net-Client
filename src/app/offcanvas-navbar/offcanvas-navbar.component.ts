@@ -1,5 +1,5 @@
 import { Component, inject, Input, input } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { NgbActiveOffcanvas } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
@@ -13,6 +13,10 @@ import { NgbActiveOffcanvas } from '@ng-bootstrap/ng-bootstrap';
   styleUrl: './offcanvas-navbar.component.scss'
 })
 export class OffcanvasNavbarComponent {
+  constructor(
+    private router: Router
+  ) { }
+
   public activeOffcanvas = inject(NgbActiveOffcanvas);
   @Input() userName: string = '';
   @Input() email: string = '';
@@ -23,5 +27,10 @@ export class OffcanvasNavbarComponent {
     if (this.onSignOutTriggered) {
       this.onSignOutTriggered();
     }
+  }
+
+  public navigateToUrl(url: string) {
+    this.activeOffcanvas.dismiss('Navigation');
+    this.router.navigateByUrl(url);
   }
 }

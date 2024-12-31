@@ -13,9 +13,18 @@ import { DetailedLinkComponent } from './links/detailed-link/detailed-link.compo
 import { EditLinkComponent } from './links/edit-link/edit-link.component';
 import { UpcomingComponent } from './shared/utils/upcoming/upcoming.component';
 import { LandingLayoutComponent } from './layouts/landing-layout/landing-layout.component';
+import { ResourcesComponent } from './shared/pages/resources/resources.component';
+import { AboutComponent } from './shared/pages/about/about.component';
+import { SettingsComponent } from './settings/settings.component';
 
 export const routes: Routes = [
-    { path: '', component: LandingLayoutComponent },
+    { 
+        path: '', component: LandingLayoutComponent,
+        children: [
+            { path: 'about-us', component: AboutComponent },
+            { path: 'resource', component: ResourcesComponent }
+        ]
+    },
     {
         path: '', component: UserComponent,
         children: [
@@ -27,7 +36,7 @@ export const routes: Routes = [
     { path: '', component: MainLayoutComponent, canActivate: [ authGuard ], 
         children: [
             { path: 'dashboard', component: DashboardComponent },
-            { path: 'settings', component: UpcomingComponent },
+            { path: 'settings', component: SettingsComponent },
             { path: 'links', component: LinksComponent,
                 children: [
                     { path: '', component: AllLinksComponent },
@@ -37,8 +46,9 @@ export const routes: Routes = [
                 ]
             },
             { path: 'coming-soon', component: UpcomingComponent },
-            { path: 'support', redirectTo: '/coming-soon', pathMatch: 'full' },
+            { path: 'about', component: AboutComponent },
+            { path: 'resources', component: ResourcesComponent },
             { path: 'tandc', redirectTo: '/coming-soon', pathMatch: 'full' }
         ]
-    },
+    }
 ];

@@ -37,6 +37,11 @@ export class AuthService {
     return this.http.put(url, body, { responseType: 'text' });
   }
 
+  public resetPassword(body: any): Observable<any> {
+    const url = this.mappingService.getResetPasswordUrl();
+    return this.http.put(url, body, { responseType: 'text' });
+  }
+
   public refreshToken(): Observable<any> {
     const url = this.mappingService.getRefreshTokenUrl();
     const body = this.getRefreshTokenPayload();
