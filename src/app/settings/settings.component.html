@@ -88,7 +88,7 @@
                 </div>
                 <div class="input-group mb-2">
                     <input class="form-control bg-body-primary proxima-semi-bold" 
-                    type="password" formControlName="newPassword" autocomplete="new-password">
+                    [type]="newPasswordTextType ? 'text' : 'password'" formControlName="newPassword" autocomplete="new-password">
                     <div class="input-group-append">
                         <span class="input-group-text apend-span">
                             <i class="fa" [ngClass]="{
@@ -121,7 +121,7 @@
                 </div>
                 <div class="input-group mb-2">
                     <input class="form-control bg-body-primary proxima-semi-bold" 
-                    type="password" formControlName="confirmPassword" autocomplete="new-password">
+                    [type]="confirmPasswordTextType ? 'text' : 'password'" formControlName="confirmPassword" autocomplete="new-password">
                     <div class="input-group-append">
                         <span class="input-group-text apend-span">
                             <i class="fa" [ngClass]="{
@@ -195,7 +195,7 @@
                     </div>
                     <div class="input-group mb-2">
                         <input class="form-control bg-body-primary proxima-semi-bold" 
-                        type="password" formControlName="newPassword" autocomplete="new-password">
+                        [type]="newPasswordFpTextType ? 'text' : 'password'" formControlName="newPassword" autocomplete="new-password">
                         <div class="input-group-append">
                             <span class="input-group-text apend-span">
                                 <i class="fa" [ngClass]="{
@@ -228,7 +228,7 @@
                     </div>
                     <div class="input-group mb-2">
                         <input class="form-control bg-body-primary proxima-semi-bold" 
-                        type="password" formControlName="confirmPassword" autocomplete="new-password">
+                        [type]="confirmPasswordFpTextType ? 'text' : 'password'" formControlName="confirmPassword" autocomplete="new-password">
                         <div class="input-group-append">
                             <span class="input-group-text apend-span">
                                 <i class="fa" [ngClass]="{

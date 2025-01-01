@@ -65,6 +65,8 @@ export class HttpErrorHandlerUtils {
             } else {
                 this.toastr.error(`Request failed: ${problemDetails.title}`);
             }
+        } else if (problemDetails.status === 400 && problemDetails.title === 'Error.LimitReached') {
+            this.toastr.error(problemDetails.detail, problemDetails.title);
         } else if (problemDetails.status === 404 && problemDetails.title === 'User.UserNotFound') {
             this.toastr.warning(problemDetails.detail, 'Please Sign Up.');
             

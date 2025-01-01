@@ -5,6 +5,8 @@ import { Router, RouterLink } from '@angular/router';
 import { UrlService } from '../../shared/services/url/url.service';
 import { ToastrService } from 'ngx-toastr';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { HttpErrorHandlerUtils } from '../../shared/utils/http-error-handler.utils';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-create-link',
@@ -23,7 +25,8 @@ export class CreateLinkComponent {
   constructor(
     private service: UrlService,
     private toastr: ToastrService,
-    private router: Router
+    private router: Router,
+    private errorHandler: HttpErrorHandlerUtils
   ) { }
 
   public isSubmitted: boolean = false;
@@ -75,8 +78,9 @@ export class CreateLinkComponent {
             this.toastr.success('Url Shortened Successfully!');
             this.router.navigateByUrl('/links');
           },
-          error: () => {
+          error: (err: HttpErrorResponse) => {
             this.isSubmitted = false;
+            this.errorHandler.handleError(err);
           }
         });
     }
